@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" vocab="http://schema.org/" typeof="CreativeWork" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Table of Contents - Opsis: Literary Arts Journal @ Montana State University (MSU)</title>
+<meta name="description" property="description" content="Page description. No longer than 155 characters."/>
+
+<!-- Social Media Tags -->
+<meta name="twitter:title" content="Opsis - Table of Contents">
+<meta name="twitter:description" content="Literary Arts Journal at Montana State University (MSU)">
+<meta name="twitter:image:src" content="http://arc.lib.montana.edu/book/opsis/meta/img/opsis.png">
+<meta name="twitter:url" content="http://arc.lib.montana.edu/book/opsis/table-of-contents.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@msulibrary">
+<meta name="twitter:creator" content="@msulibrary">
+<meta property="og:title" content="Opsis - Table of Contents">
+<meta property="og:description" content="Literary Arts Journal at Montana State University (MSU)">
+<meta property="og:image" content="http://arc.lib.montana.edu/book/opsis/meta/img/opsis.png">
+<meta property="og:url" content="http://arc.lib.montana.edu/book/opsis/table-of-contents.html">
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Montana State University (MSU) Library"/>
+<!-- End Social Media Tags -->
+
+<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="./favicon.ico" type="image/x-icon"/>
+<link rel="stylesheet" href="./meta/styles/master.css"/>
+</head>
+<body>
+
+<header role="banner">
+<a href="#" rel="bookmark home"><span epub:type="fulltitle">Opsis: Literary Arts Journal</span> by Multiple Authors</a>
+<nav>
+ <p class="breadcrumb" vocab="http://rdf.data-vocabulary.org/rdf.xml#">
+  <span typeof="Breadcrumb"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/index.html" rel="index url" property="title">Home</a></span> >
+  <span typeof="Breadcrumb"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/table-of-contents.html" rel="url" property="title">Current</a></span>
+ </p>
+</nav>
+</header>
+
+<main data-bookmark="#" id="top" epub:type="bodymatter chapter" role="main">
+<a href="#menu" class="control open">menu</a>
+<h1 epub:type="title">Table of Contents</h1>
+<section class="reading-view">
+<div class="reading pane">
+<ul class="toc" epub:type="toc">
+<?php
+//bring database parameters and functions onto page
+include_once './meta/assets/dbconnect.inc';
+
+//get data to generate TOC
+$query = 'SELECT * FROM schema_fiction.bodymatter ORDER BY id ASC';
+$result = mysql_query($query) or die('Errant query:  '.$query);
+if(mysql_num_rows($result)) {
+  while($item = mysql_fetch_object($result)) {
+    $item_id = $item->id;
+    $item_name = $item->name;
+    $item_creator = $item->creator;
+    $item_publisher = $item->publisher;
+?>
+<li>
+  <span class="title" itemprop="title"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/item/<?php echo $item_id; ?>" itemprop="url"><?php echo $item_name; ?></a></span>
+  <span class="byline" itemprop="byline">by <?php echo $item_creator; ?></span>
+</li>
+<?php
+  }
+}
+?>
+</ul><!-- end ul.toc -->
+</div>
+<aside class="metadata pane" epub:type="help appendix" role="complementary">
+  <dl>
+    <dt>Author(s):</dt>
+    <dd property="creator">Montana State University (MSU) Students</dd>
+    <dt>Date:</dt>
+    <dd property="datePublished">2015-02-02T01:43:19Z</dd>
+    <dt>Page:</dt>
+    <dd epub:type="pagebreak" class="pagination">N/A</dd>
+  </dl>
+</aside>
+</section>
+</main>
+
+<section id="menu" role="navigation">
+<h2>Opsis: Literary Arts Journal</h2>
+<nav epub:type="landmarks">
+<ul>
+  <li><a epub:type="toc" href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/table-of-contents.html">Table of Contents</a></li>
+  <li><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/index.html">Title Page</a></li>
+  <li>
+  <form class="search" role="search" action="<?php echo dirname($_SERVER['PHP_SELF']); ?>/search?">
+    <label class="hidden" for="q">Search</label>
+    <input id="q" name="q" type="search" placeholder="Search">
+  </form>
+  </li>
+</ul>
+</nav>
+<a href="#top" class="control close">close</a>
+</section>
+
+<footer role="contentinfo">
+<ul class="info-links">
+  <li><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/table-of-contents.html#top">Top of Page</a></li>
+  <li><a epub:type="toc" href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/table-of-contents.html">Table of Contents</a></li>
+  <li><a epub:type="other-credits" title="CC BY 3.0 US" property="license" href="https://creativecommons.org/licenses/by/3.0/us/">
+  License</a></li>
+  <li property="publisher provider"><?php echo $item_publisher; ?></li>
+</ul>
+</footer>
+
+<script async src="<?php echo dirname($_SERVER['PHP_SELF']); ?>/meta/scripts/main.js"></script>
+
+</body>
+</html>

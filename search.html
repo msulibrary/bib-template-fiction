@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en" vocab="http://schema.org/" typeof="CreativeWork" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Search - Opsis: Literary Arts Journal @ Montana State University (MSU)</title>
+<meta name="description" property="description" content="Page description. No longer than 155 characters."/>
+
+<!-- Social Media Tags -->
+<meta name="twitter:title" content="Opsis - Search">
+<meta name="twitter:description" content="Literary Arts Journal at Montana State University (MSU)">
+<meta name="twitter:image:src" content="http://arc.lib.montana.edu/book/opsis/meta/img/opsis.png">
+<meta name="twitter:url" content="http://arc.lib.montana.edu/book/opsis/search.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@msulibrary">
+<meta name="twitter:creator" content="@msulibrary">
+<meta property="og:title" content="Opsis - Table of Contents">
+<meta property="og:description" content="Literary Arts Journal at Montana State University (MSU)">
+<meta property="og:image" content="http://arc.lib.montana.edu/book/opsis/meta/img/opsis.png">
+<meta property="og:url" content="http://arc.lib.montana.edu/book/opsis/search.html">
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Montana State University (MSU) Library"/>
+<!-- End Social Media Tags -->
+
+<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="./favicon.ico" type="image/x-icon"/>
+<link rel="stylesheet" href="./meta/styles/master.css"/>
+
+<style type="text/css">
+
+
+main ul.result li {
+display: block;
+
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+border: 1px solid #ccc;
+padding: .5em;
+margin:1em;
+width:34em;
+background-color: #f6f7f8;
+}
+
+main ul.result li:hover {
+	background-color: #eff1f3;
+}
+
+ul.result a:hover {
+	text-decoration: none;
+}
+
+p.result-description {
+	height: 8em;
+	max-width:34em;
+}
+
+.result {
+	margin:0 auto;
+}
+
+
+
+
+#searchBox {
+
+position: relative;
+left:20%;
+width: 50%;
+max-width: 90%;
+height: 50px;
+background-color: #fff;
+border: 1px solid #ddd;
+border-radius: 3px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+margin: 1% 0 5% 0;
+box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+-khtml-box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+-webkit-box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+}
+
+#searchBox label {
+display: none;
+}
+
+
+#searchBox input {
+position: absolute;
+top: 3px;
+left: 0;
+padding: 3px 0 0 10px;
+width: 85%;
+line-height: 40px;
+height: 40px;
+font-size: 1.2em;
+border: 0;
+-webkit-appearance: none;
+outline: none;
+background: #fff;
+}
+
+#searchBox button {
+position: absolute;
+top: 0;
+right: 0;
+cursor: pointer;
+margin: 0;
+padding: 0;
+width: 50px;
+height: 50px;
+float: left;
+background: url('meta/img/search.gif') no-repeat 50% 50%;
+text-indent: -999em;
+border: 1px solid #ddd;
+border-radius: 3px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+}
+
+
+
+@media (max-width: 48em) {
+.reading-view {
+font-size: .8em;
+line-height: 1.25em;
+min-height: 8em;
+
+}
+
+main ul.result li {
+	width: 25em;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<header role="banner">
+<a href="#" rel="bookmark home"><span epub:type="fulltitle">Opsis: Literary Arts Journal</span></a>
+<nav>
+ <p class="breadcrumb" vocab="http://rdf.data-vocabulary.org/rdf.xml#">
+  <span typeof="Breadcrumb"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/index.html" rel="index url" property="title">Home</a></span> >
+  <span typeof="Breadcrumb"><a href="search.html" rel="section bookmark url" property="title">Search</a></span>
+ </p>
+</nav>
+</header>
+
+<main data-bookmark="#" id="top" epub:type="bodymatter chapter" role="main">
+<a href="#menu" class="control open">menu</a>
+<h1 epub:type="title">Search</h1>
+<section class="reading-view">
+<div class="reading pane">
+<form id="searchBox" method="get" action="search?">
+  <label for="q">Search</label>
+  <input type="text" maxlength="200" name="q" id="q" tabindex="1" value="Search Opsis..." onclick="if (this.value == 'Search Opsis...') { this.value = ''; }" onblur="if (this.value == '') { this.value = 'Search Opsis...'; }">
+  <button type="submit" class="button">Search</button>
+</form>
+
+<?php
+//set and sanitize global variables for URL construction
+$server = htmlentities(strip_tags($_SERVER['SERVER_NAME']));
+$path = htmlentities(strip_tags(dirname($_SERVER['PHP_SELF'])));
+$fileName = htmlentities(strip_tags(basename($_SERVER['SCRIPT_NAME'])));
+
+//set query variable, trim whitespaces/tabs, strip html tags
+$q = trim(strip_tags(urlencode($_GET['q'])));
+$link = '<p><a href="./search.html">Try another search?</a></p>'."\n";
+//create message if search form was empty
+if (!$q) {
+?>
+<p>Search across all of the pages...</p>
+<?php
+} else {
+//set default value for API version
+$version = isset($_GET['v']) ? strip_tags((int)$_GET['v']) : '1';
+//set default value for type of API query
+$type = isset($type) ? strip_tags(htmlentities($_GET['type'])) : 'search';
+//set default value for API format
+$format = isset($_GET['form']) ? strip_tags(htmlentities($_GET['form'])) : 'json';
+//set default value for query
+$query = isset($q) ? $q : 'video';
+
+//set feed URL
+$feedURL = 'http://'.$server.$path.'/api?v='.$version.'&type='.$type.'&q='.$query.'&format='.$format.'';
+//echo $feedURL;
+
+//call API and get data
+$request = file_get_contents($feedURL);
+//echo '<pre>'.$request.'</pre>';
+
+if ($request === FALSE) {
+	//API call failed, display message to user
+	echo '<p><strong>It looks like we can\'t communicate with the API at the moment.</strong></p>'."\n";
+	exit();
+}
+//create json object(s) out of response from API; set to "true" to turn response into an array
+//$result = json_decode($request,true);
+$result = json_decode($request);
+//get values in json data for number of search results returned
+//$totalItems = $result->data->totalItems;
+
+?>
+<h2 class="mainHeading">Your search for <strong><?php echo urldecode($query); ?></strong> resulted in <?php echo $totalItems; ?> match(es).</h2>
+<ul class="result">
+<?php
+//check for empty results, display message to user
+/*if ($totalItems == 0) {
+	echo '<h3 class="warn">Sorry, no matching results.</h3>'."\n";
+	echo $link;
+	exit;
+}*/
+//parse returned data elements from api call and display as html
+foreach ($result->items as $item) {
+	$title = htmlentities($item->object->name);
+	$id = $item->object->id;
+	$creator = $item->object->creator;
+	$datePublished = date('M j Y g:i A', strtotime($item->object->datePublished));
+	$content = substr(strip_tags($item->object->articleBody), 0,100);
+?>
+<a href="<?php echo 'http://'.$server.$path.'/item/'.$id; ?>">
+<li>
+  <p class="result-description">
+  <span><?php echo $title; ?><b>...</b></span>
+	<br />
+	  <span style="color:#04622b"><?php echo 'http://'.$server.$path.'/item/'.$id; ?></span>
+	<br />
+	<span style="color:#545454"><b>Content:</b> <?php echo $content; ?>... <b>Creator:</b> <?php echo $creator; ?>... <b>Date:</b> <?php echo $datePublished; ?> <b>...</b>  </span>
+	<br />
+	<br />
+	<br />
+  </p>
+</li>
+</a>
+<?php
+}
+echo $link;
+}
+?>
+</ul>
+
+</div>
+</section>
+</main>
+
+<section id="menu" role="navigation">
+<h2>Opsis: Literary Arts Journal</h2>
+<nav epub:type="landmarks">
+<ul>
+  <li><a epub:type="toc" href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/table-of-contents.html">Table of Contents</a></li>
+  <li><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/index.html">Title Page</a></li>
+  <li>
+  <form class="search" role="search" action="<?php echo dirname($_SERVER['PHP_SELF']); ?>/search?">
+    <label class="hidden" for="q">Search</label>
+    <input id="q" name="q" type="search" placeholder="Search">
+  </form>
+  </li>
+</ul>
+</nav>
+<a href="#top" class="control close">close</a>
+</section>
+
+<footer role="contentinfo">
+<ul class="info-links">
+ <li><a href="#top">Top of Page</a></li>
+ <li><a epub:type="toc" href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/table-of-contents.html">Table of Contents</a></li>
+ <li><a epub:type="other-credits" title="CC BY 3.0 US" property="license" href="https://creativecommons.org/licenses/by/3.0/us/">
+  License</a></li>
+ <li property="publisher provider">Montana State University (MSU)</li>
+</ul>
+</footer>
+
+<script async src="./meta/scripts/main.js"></script>
+
+</body>
+</html>

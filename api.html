@@ -1,0 +1,110 @@
+<?php
+//sample API calls
+//api?v=1&type=item&id=1&format=json
+//api?v=1&type=item&id=1&format=xml
+//api?v=1&type=search&q=renee&limit=10&format=xml
+//api?v=1&date=2014-10&format=json
+
+//set value for API version
+$v = isset($_GET['v']) ? strip_tags((int)$_GET['v']) : null;
+//set value for page length (number of items to display)
+$limit = isset($_GET['limit']) ? strip_tags(intval($_GET['limit'])) : 10;
+//set value for result format
+$format = strip_tags(htmlentities(strtolower($_GET['format']))) == 'json' ? 'json' : 'xml';
+//set value for id
+$id = isset($_GET['id']) ? strip_tags((int)$_GET['id']) : null;
+//type of of API query - options: search, item
+$type = isset($_GET['type']) ? strip_tags(htmlentities($_GET['type'])) : null;
+//set batch $date variable, escape the string for mysql, and validate that it is a numeric value
+$date = isset($_GET['date']) ? strip_tags($_GET['date']) : null;
+//set query variable, trim whitespaces/tabs, strip html tags
+$q = isset($_GET['q']) ? trim(strip_tags(urlencode($_GET['q']))) : null;
+
+//bring database parameters and functions onto page
+include_once './meta/assets/dbconnect.inc';
+
+//get items from database
+if ($type == 'search') {
+	$query = "
+		SELECT *
+		FROM schema_fiction.bodymatter
+		WHERE MATCH (name, creator, additionalType, additionalType2, articleBody)
+		AGAINST ('$q' IN BOOLEAN MODE)
+		GROUP BY id
+		ORDER BY id
+		LIMIT $limit
+	";
+} elseif ($type == 'item') {
+	$query = "
+		SELECT *
+		FROM schema_fiction.bodymatter
+		WHERE id = $id
+	";
+} elseif (!is_null($date)) {
+	$query = "
+		SELECT *
+		FROM schema_fiction.bodymatter
+		WHERE datePublished = '$date'
+		GROUP BY id
+		ORDER BY id
+		LIMIT $limit
+	";
+} else {
+	$query = "
+		SELECT *
+		FROM schema_fiction.bodymatter
+		WHERE id = $id
+	";
+}
+
+$result = mysql_query($query) or die('Errant query:  '.$query);
+$rowCount = mysql_num_rows($result);
+
+//create a master array of the records
+$items = array();
+if(mysql_num_rows($result)) {
+	while($item = mysql_fetch_assoc($result)) {
+		$items[] = array('object'=>$item);
+	}
+}
+
+//output in requested format
+if ($format == 'json' && $rowCount != 0) {
+	header('Content-type: application/json');
+	header("access-control-allow-origin: *");
+	echo json_encode(array('items'=>$items));
+} elseif ($format == 'xml' && $rowCount != 0) {
+	header('Content-type: text/xml');
+	echo '<items>';
+  echo '<totalResults>'.$rowCount.'</totalResults>';
+	foreach($items as $tag => $value) {
+		writeXML($tag, $value);
+	}
+	echo '</items>';
+} else {
+	header('Content-type: application/json');
+	header("access-control-allow-origin: *");
+	echo '{ "totalResults" : 0, "message" : "There were no items matching that query." }';
+}
+
+function writeXML($tag, $value) {
+	if (!is_int($tag)) {
+		echo '<',$tag,'>';
+	}
+
+	if (!is_array($value)) {
+		echo htmlspecialchars($value);
+	}
+	else {
+		foreach ($value as $tag2 => $value2) {
+			writeXML($tag2, $value2);
+		}
+	}
+
+	if (!is_int($tag)) {
+		echo '</',$tag,'>';
+	}
+}
+
+//disconnect from database
+//mysql_close($link);
