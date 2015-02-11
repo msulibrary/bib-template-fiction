@@ -182,7 +182,7 @@ $type = isset($type) ? strip_tags(htmlentities($_GET['type'])) : 'search';
 //set default value for API format
 $format = isset($_GET['form']) ? strip_tags(htmlentities($_GET['form'])) : 'json';
 //set default value for query
-$query = isset($q) ? $q : 'video';
+$query = isset($q) ? $q : null;
 
 //set feed URL
 $feedURL = 'http://'.$server.$path.'/api?v='.$version.'&type='.$type.'&q='.$query.'&format='.$format.'';
@@ -190,7 +190,6 @@ $feedURL = 'http://'.$server.$path.'/api?v='.$version.'&type='.$type.'&q='.$quer
 
 //call API and get data
 $request = file_get_contents($feedURL);
-//echo '<pre>'.$request.'</pre>';
 
 if ($request === FALSE) {
 	//API call failed, display message to user
@@ -201,18 +200,15 @@ if ($request === FALSE) {
 //$result = json_decode($request,true);
 $result = json_decode($request);
 //get values in json data for number of search results returned
-//$totalItems = $result->data->totalItems;
-
+$totalItems = $result->totalResults;
 ?>
 <h2 class="mainHeading">Your search for <strong><?php echo urldecode($query); ?></strong> resulted in <?php echo $totalItems; ?> match(es).</h2>
 <ul class="result">
 <?php
 //check for empty results, display message to user
-/*if ($totalItems == 0) {
-	echo '<h3 class="warn">Sorry, no matching results.</h3>'."\n";
-	echo $link;
-	exit;
-}*/
+if ($totalItems == 0) {
+	echo '<h2>Sorry, no matching results.</h3>'."\n";
+}
 //parse returned data elements from api call and display as html
 foreach ($result->items as $item) {
 	$title = htmlentities($item->object->name);
