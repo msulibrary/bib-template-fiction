@@ -26,6 +26,14 @@
 <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
 <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
 <link rel="stylesheet" href="./meta/styles/master.css"/>
+<style type="text/css">
+.toc {list-style:none;margin-bottom:20px;width:85%;}
+.toc li {overflow:hidden;padding-bottom:2px;}
+.toc span a, .toc span {display:inline-block;position:relative;bottom:-4px;}
+span.label {float:left;width:auto;padding:0 0 3px 2px;}
+[property="position"]{float:right;width:auto;padding:0 2px 3px 0;}
+[property="position"]:before{content: " .......... ";}
+</style>
 </head>
 <body>
 
@@ -44,7 +52,7 @@
 <h1 epub:type="title">Table of Contents</h1>
 <section class="reading-view">
 <div class="reading pane">
-<ul class="toc" epub:type="toc">
+<ul class="toc" epub:type="toc" property="ItemList">
 <?php
 //bring database parameters and functions onto page
 include_once './meta/assets/dbconnect.inc';
@@ -60,8 +68,10 @@ if(mysql_num_rows($result)) {
     $item_publisher = $item->publisher;
 ?>
 <li>
-  <span class="title" itemprop="title"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/item/<?php echo $item_id; ?>" itemprop="url"><?php echo $item_name; ?></a></span>
-  <span class="byline" itemprop="byline">by <?php echo $item_creator; ?></span>
+  <span class="label" property="name"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/item/<?php echo $item_id; ?>" property="url"><?php echo $item_name; ?></a>
+    <br /><span property="creator">by <?php echo $item_creator; ?></span>
+  </span>
+  <span property="position"> <?php echo $item_id; ?></span>
 </li>
 <?php
   }
