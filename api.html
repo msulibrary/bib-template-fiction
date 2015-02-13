@@ -29,7 +29,7 @@ if ($type == 'search') {
 		SELECT *
 		FROM schema_fiction.bodymatter
 		WHERE MATCH (name, creator, additionalType, additionalType2, articleBody)
-		AGAINST ('$q' IN BOOLEAN MODE)
+		AGAINST ('$q*' IN BOOLEAN MODE)
 		GROUP BY id
 		ORDER BY id
 		LIMIT $limit
