@@ -118,7 +118,7 @@ if ($fileName == 'item.html') {
  <p class="breadcrumb" vocab="http://rdf.data-vocabulary.org/rdf.xml#">
   <span typeof="Breadcrumb"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/index.html" rel="index url" property="title">Home</a></span> >
   <span typeof="Breadcrumb"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/table-of-contents.html" rel="url" property="title">Table of Contents</a></span> >
-  <span typeof="Breadcrumb"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/item.html?id=<?php echo $item_id; ?>" rel="bookmark url" property="title">Current</a></span>
+  <span typeof="Breadcrumb"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/item/<?php echo $item_id; ?>" rel="bookmark url" property="title">Current</a></span>
  </p>
 </nav>
 </header>
