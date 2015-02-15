@@ -28,11 +28,8 @@
 <link rel="stylesheet" href="./meta/styles/master.css"/>
 
 <style type="text/css">
-
-
 main ul.result li {
 display: block;
-
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;
@@ -60,11 +57,7 @@ p.result-description {
 	margin:0 auto;
 }
 
-
-
-
 #searchBox {
-
 position: relative;
 left:20%;
 width: 50%;
@@ -120,13 +113,12 @@ border-radius: 3px;
 }
 
 
-
 @media (max-width: 48em) {
+
 .reading-view {
 font-size: .8em;
 line-height: 1.25em;
 min-height: 8em;
-
 }
 
 main ul.result li {
@@ -134,7 +126,6 @@ main ul.result li {
 }
 
 }
-
 </style>
 </head>
 <body>
@@ -149,7 +140,7 @@ main ul.result li {
 </nav>
 </header>
 
-<main data-bookmark="#" id="top" epub:type="bodymatter chapter" role="main">
+<main data-bookmark="#" id="top" epub:type="backmatter appendix" role="main">
 <a href="#menu" class="control open">menu</a>
 <h1 epub:type="title">Search</h1>
 <section class="reading-view">
@@ -220,11 +211,11 @@ foreach ($result->items as $item) {
 <a href="<?php echo 'http://'.$server.$path.'/item/'.$id; ?>">
 <li>
   <p class="result-description">
-  <span><?php echo $title; ?><b>...</b></span>
+  <span><?php echo $title; ?><strong>...</strong></span>
 	<br />
 	  <span style="color:#04622b"><?php echo 'http://'.$server.$path.'/item/'.$id; ?></span>
 	<br />
-	<span style="color:#545454"><b>Content:</b> <?php echo $content; ?>... <b>Creator:</b> <?php echo $creator; ?>... <b>Date:</b> <?php echo $datePublished; ?> <b>...</b>  </span>
+    <span style="color:#545454"><strong>Content:</strong> <?php echo $content; ?>... <strong>Creator:</strong> <?php echo $creator; ?>... <strong>Date:</strong> <?php echo $datePublished; ?> <strong>...</strong></span>
 	<br />
 	<br />
 	<br />
