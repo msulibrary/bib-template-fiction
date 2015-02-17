@@ -3,8 +3,10 @@
 //security: the directory where this file lives must have .htaccess file allowing only calls from php files to have read access to it.
 
 //db name, login data and connection directions
-mysql_pconnect("localhost","YOUR-DB-USER-HERE","YOUR-DB-PASSWORD-HERE")
-	or die("Error: Unable to connect to the database.");
-mysql_select_db("schema_fiction");
+$dbconn = new mysqli('localhost', 'YOUR-DB-USER-HERE', 'YOUR-DB-PASSWORD-HERE', 'schema_fiction');
+
+if ($dbconn->connect_errno) {
+    die('Unable to connect to database [' . $dbconn->connect_error . ']');
+}
 
 ?>
