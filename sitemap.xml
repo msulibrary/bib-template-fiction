@@ -10,39 +10,42 @@ $fileName = htmlentities(strip_tags(basename($_SERVER['SCRIPT_NAME'])));
 ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-        <loc><?php echo 'http://'.$server.$path; ?>/</loc>
-        <lastmod><?php echo date('c'); ?></lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
+  <loc><?php echo 'http://'.$server.$path; ?>/</loc>
+  <lastmod><?php echo date('c'); ?></lastmod>
+  <changefreq>daily</changefreq>
+  <priority>1.0</priority>
 </url>
 <url>
-        <loc><?php echo 'http://'.$server.$path; ?>/table-of-contents.html</loc>
-        <lastmod><?php echo date('c'); ?></lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
+  <loc><?php echo 'http://'.$server.$path; ?>/table-of-contents.html</loc>
+  <lastmod><?php echo date('c'); ?></lastmod>
+  <changefreq>daily</changefreq>
+  <priority>1.0</priority>
 </url>
 <?php
 //bring database parameters and functions onto page
 include_once './meta/assets/dbconnect.inc';
 
-// retrieve items from database
+//retrieve items from database
 $query = "SELECT id, dateModified FROM fiction_schema.bodymatter GROUP BY id ORDER BY id ASC";
-$getRecords = mysql_query($query);
+$result = $dbconn->query($query) or die($dbconn->error.__LINE__);
 
-// store items in array, strip out html tags, generate valid date stamp
-while($row = mysql_fetch_object($getRecords))
- {
-$id = $row->id;
-$lastmod = date('c', strtotime($row->dateModified));
-// output to client
+//store items in array, strip out html tags, generate valid date stamp
+if($result->num_rows > 0) {
+  while($item = $result->fetch_object()) {
+    $id = $item->id;
+    $lastmod = date('c', strtotime($item->dateModified));
+//output to client
 ?>
 <url>
-        <loc><?php echo 'http://'.$server.$path; ?>/item/<?php echo $id; ?></loc>
-        <lastmod><?php echo $lastmod; ?></lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
+  <loc><?php echo 'http://'.$server.$path; ?>/item/<?php echo $id; ?></loc>
+  <lastmod><?php echo $lastmod; ?></lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>1.0</priority>
 </url>
 <?php
   }
+$result->close();
+}
+$dbconn->close();
 ?>
 </urlset>
