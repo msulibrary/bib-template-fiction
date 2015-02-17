@@ -1,8 +1,12 @@
 <?php
-//purpose: hold specific login data and make database connections for read/write actions
+//purpose: hold specific login data and make database connections for CRUD (create, read, update, delete) actions
 //security: the directory where this file lives must have .htaccess file allowing only calls from php files to have read access to it.
 
-//login data and connection directions
-mysql_connect("localhost","YOUR-DB-USER-HERE","YOUR-DB-PASSWORD") or die("Error: Unable to connect to database." . mysql_error());
-mysql_select_db("schema_fiction");
+//db name, login data and connection directions
+$dbconn = new mysqli('localhost', 'YOUR-DB-USER-HERE', 'YOUR-DB-PASSWORD-HERE', 'schema_fiction');
+
+if ($dbconn->connect_errno) {
+    die('Unable to connect to database [' . $dbconn->connect_error . ']');
+}
+
 ?>
