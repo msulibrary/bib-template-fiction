@@ -10,9 +10,9 @@ include_once './meta/assets/dbconnect.inc';
 $query = 'SELECT * FROM schema_fiction.bodymatter WHERE id = '.$id;
 //echo $query;
 
-$result = mysql_query($query) or die('Errant query:  '.$query);
-if(mysql_num_rows($result)) {
-  while($item = mysql_fetch_object($result)) {
+$result = $dbconn->query($query) or die($dbconn->error.__LINE__);
+if($result->num_rows > 0) {
+  while($item = $result->fetch_object()) {
     $item_id = $item->id;
     $item_name = $item->name;
     $item_creator = $item->creator;
@@ -197,7 +197,9 @@ if ($item_body != null && $item_genre != 'Prose' && $item_genre != 'Poetry' && $
 <script async src="<?php echo dirname($_SERVER['PHP_SELF']); ?>/meta/scripts/main.js"></script>
 <?php
   }
+$result->close();
 }
+$dbconn->close();
 ?>
 </body>
 </html>
