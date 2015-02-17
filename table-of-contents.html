@@ -59,9 +59,9 @@ include_once './meta/assets/dbconnect.inc';
 
 //get data to generate TOC
 $query = 'SELECT * FROM schema_fiction.bodymatter ORDER BY id ASC';
-$result = mysql_query($query) or die('Errant query:  '.$query);
-if(mysql_num_rows($result)) {
-  while($item = mysql_fetch_object($result)) {
+$result = $dbconn->query($query) or die($dbconn->error.__LINE__);
+if($result->num_rows > 0) {
+  while($item = $result->fetch_object()) {
     $item_id = $item->id;
     $item_name = $item->name;
     $item_creator = $item->creator;
@@ -75,7 +75,9 @@ if(mysql_num_rows($result)) {
 </li>
 <?php
   }
+$result->close();
 }
+$dbconn->close();
 ?>
 </ul><!-- end ul.toc -->
 </div>
