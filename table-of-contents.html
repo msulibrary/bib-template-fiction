@@ -1,3 +1,12 @@
+<?php
+//get and set url protocol
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+//set and sanitize global variables for URL construction
+$server = htmlentities(strip_tags($_SERVER['SERVER_NAME']));
+$path = htmlentities(strip_tags(dirname($_SERVER['PHP_SELF'])));
+$fileName = htmlentities(strip_tags(basename($_SERVER['SCRIPT_NAME'])));
+$fileNameURI = htmlentities(strip_tags($_SERVER['REQUEST_URI']));
+?>
 <!doctype html>
 <html lang="en" vocab="http://schema.org/" typeof="CreativeWork" xmlns:epub="http://www.idpf.org/2007/ops">
 <head>
@@ -5,27 +14,38 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Table of Contents - Opsis: Literary Arts Journal @ Montana State University (MSU)</title>
-<meta name="description" property="description" content="Page description. No longer than 155 characters."/>
-
+<meta name="description" property="description" content="Opsis is a Literary Arts Journal published by the students at Montana State University (MSU)"/>
 <!-- Social Media Tags -->
 <meta name="twitter:title" content="Opsis - Table of Contents">
 <meta name="twitter:description" content="Literary Arts Journal at Montana State University (MSU)">
-<meta name="twitter:image:src" content="http://arc.lib.montana.edu/book/opsis/meta/img/opsis.png">
-<meta name="twitter:url" content="http://arc.lib.montana.edu/book/opsis/table-of-contents.html">
+<meta name="twitter:image:src" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png">
+<meta name="twitter:url" content="<?php echo $protocol.$server.$path; ?>/table-of-contents.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@msulibrary">
 <meta name="twitter:creator" content="@msulibrary">
 <meta property="og:title" content="Opsis - Table of Contents">
 <meta property="og:description" content="Literary Arts Journal at Montana State University (MSU)">
-<meta property="og:image" content="http://arc.lib.montana.edu/book/opsis/meta/img/opsis.png">
-<meta property="og:url" content="http://arc.lib.montana.edu/book/opsis/table-of-contents.html">
+<meta property="og:image" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png">
+<meta property="og:url" content="<?php echo $protocol.$server.$path; ?>/table-of-contents.html">
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Montana State University (MSU) Library"/>
 <!-- End Social Media Tags -->
-
-<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
-<link rel="icon" href="./favicon.ico" type="image/x-icon"/>
-<link rel="stylesheet" href="./meta/styles/master.css"/>
+<?php
+//set $fileName rel=canonical conditional
+if ($fileName == 'item.html') {
+?>
+<link rel="canonical" href="<?php echo $protocol.$server.$path; ?>/item/<?php echo $id; ?>"/>
+<?php
+} else {
+?>
+<link rel="canonical" href="<?php echo $protocol.$server.$fileNameURI; ?>"/>
+<?php
+//end $fileName rel=canonical conditional
+}
+?>
+<link rel="shortcut icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
+<link rel="stylesheet" href="<?php echo $path; ?>/meta/styles/master.css"/>
 <style type="text/css">
 .toc {list-style:none;margin-bottom:20px;width:85%;}
 .toc li {overflow:hidden;padding-bottom:2px;}
@@ -41,8 +61,8 @@ span.label {float:left;width:auto;padding:0 0 3px 2px;}
 <a href="#" rel="bookmark home"><span epub:type="fulltitle">Opsis: Literary Arts Journal</span> by Multiple Authors</a>
 <nav>
  <p class="breadcrumb" vocab="http://rdf.data-vocabulary.org/rdf.xml#">
-  <span typeof="Breadcrumb"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/index.html" rel="index url" property="title">Home</a></span> >
-  <span typeof="Breadcrumb"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/table-of-contents.html" rel="url" property="title">Current</a></span>
+  <span typeof="Breadcrumb"><a href="<?php echo $path; ?>/index.html" rel="index url" property="title">Home</a></span> >
+  <span typeof="Breadcrumb"><a href="<?php echo $path; ?>/table-of-contents.html" rel="bookmark url" property="title">Current</a></span>
  </p>
 </nav>
 </header>
@@ -68,7 +88,7 @@ if($result->num_rows > 0) {
     $item_publisher = $item->publisher;
 ?>
 <li>
-  <span class="label" property="name"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/item/<?php echo $item_id; ?>" property="url"><?php echo $item_name; ?></a>
+  <span class="label" property="name"><a href="<?php echo $path; ?>/item/<?php echo $item_id; ?>" property="url"><?php echo $item_name; ?></a>
     <br /><span property="creator">by <?php echo $item_creator; ?></span>
   </span>
   <span property="position"> <?php echo $item_id; ?></span>
@@ -98,10 +118,10 @@ $dbconn->close();
 <h2>Opsis: Literary Arts Journal</h2>
 <nav epub:type="landmarks">
 <ul>
-  <li><a epub:type="toc" href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/table-of-contents.html">Table of Contents</a></li>
-  <li><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/index.html">Title Page</a></li>
+  <li><a epub:type="toc" href="<?php echo $path; ?>/table-of-contents.html">Table of Contents</a></li>
+  <li><a href="<?php echo $path; ?>/index.html">Title Page</a></li>
   <li>
-  <form class="search" role="search" action="<?php echo dirname($_SERVER['PHP_SELF']); ?>/search?">
+  <form class="search" role="search" action="<?php echo $path; ?>/search?">
     <label class="hidden" for="q">Search</label>
     <input id="q" name="q" type="search" placeholder="Search">
   </form>
@@ -113,15 +133,15 @@ $dbconn->close();
 
 <footer role="contentinfo">
 <ul class="info-links">
-  <li><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/table-of-contents.html#top">Top of Page</a></li>
-  <li><a epub:type="toc" href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/table-of-contents.html">Table of Contents</a></li>
+  <li><a href="<?php echo $path; ?>/table-of-contents.html#top">Top of Page</a></li>
+  <li><a epub:type="toc" href="<?php echo $path; ?>/table-of-contents.html">Table of Contents</a></li>
   <li><a epub:type="other-credits" title="CC BY 3.0 US" property="license" href="https://creativecommons.org/licenses/by/3.0/us/">
   License</a></li>
   <li property="publisher provider"><?php echo $item_publisher; ?></li>
 </ul>
 </footer>
 
-<script async src="<?php echo dirname($_SERVER['PHP_SELF']); ?>/meta/scripts/main.js"></script>
+<script async src="<?php echo $path; ?>/meta/scripts/main.js"></script>
 
 </body>
 </html>
