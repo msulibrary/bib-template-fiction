@@ -1,3 +1,12 @@
+<?php
+//get and set url protocol
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+//set and sanitize global variables for URL construction
+$server = htmlentities(strip_tags($_SERVER['SERVER_NAME']));
+$path = htmlentities(strip_tags(dirname($_SERVER['PHP_SELF'])));
+$fileName = htmlentities(strip_tags(basename($_SERVER['SCRIPT_NAME'])));
+$fileNameURI = htmlentities(strip_tags($_SERVER['REQUEST_URI']));
+?>
 <!doctype html>
 <html lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
 <head>
@@ -5,27 +14,27 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Opsis: Literary Arts Journal of Montana State University (MSU)</title>
-<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
-<link rel="icon" href="./favicon.ico" type="image/x-icon"/>
-
+<meta name="description" property="description" content="Opsis is a Literary Arts Journal published by the students at Montana State University (MSU)"/>
 <!-- Social Media Tags -->
 <meta name="twitter:title" content="Opsis">
 <meta name="twitter:description" content="Literary Arts Journal at Montana State University (MSU)">
-<meta name="twitter:image:src" content="http://arc.lib.montana.edu/book/opsis/meta/img/opsis.png">
-<meta name="twitter:url" content="http://arc.lib.montana.edu/book/opsis/">
+<meta name="twitter:image:src" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png">
+<meta name="twitter:url" content="<?php echo $protocol.$server.$path; ?>/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@msulibrary">
 <meta name="twitter:creator" content="@msulibrary">
 <meta property="og:title" content="Opsis">
 <meta property="og:description" content="Literary Arts Journal at Montana State University (MSU)">
-<meta property="og:image" content="http://arc.lib.montana.edu/book/opsis/meta/img/opsis.png">
-<meta property="og:url" content="http://arc.lib.montana.edu/book/opsis/">
+<meta property="og:image" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png">
+<meta property="og:url" content="<?php echo $protocol.$server.$path; ?>/">
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Montana State University (MSU) Library"/>
 <!-- End Social Media Tags -->
-
-<link rel="stylesheet" href="./meta/styles/master.css"/>
-<link rel="stylesheet" href="./meta/styles/home.css"/>
+<link rel="canonical" href="<?php echo $protocol.$server.$path; ?>/"/>
+<link rel="shortcut icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
+<link rel="stylesheet" href="<?php echo $path; ?>/meta/styles/master.css"/>
+<link rel="stylesheet" href="<?php echo $path; ?>/meta/styles/home.css"/>
 </head>
 <body>
 
@@ -35,7 +44,7 @@
 <section class="reading-view">
 <div class="reading pane">
 
-<a href="http://arc.lib.montana.edu/book/opsis/table-of-contents.html"> <img src="meta/img/opsis.png"/> </a>
+<a href="<?php echo $path; ?>/table-of-contents.html"> <img src="<?php echo $path; ?>/meta/img/opsis.png"/> </a>
 
 </div>
 </main>
@@ -44,8 +53,8 @@
 <h2>Opsis: Literary Arts Journal</h2>
 <nav epub:type="landmarks">
 <ul>
-  <li><a epub:type="toc" href="./table-of-contents.html">Table of Contents</a></li>
-  <form class="search" role="search" action="<?php echo dirname($_SERVER['PHP_SELF']); ?>/search?">
+  <li><a epub:type="toc" href="<?php echo $path; ?>/table-of-contents.html">Table of Contents</a></li>
+  <form class="search" role="search" action="<?php echo $path; ?>/search?">
     <label class="hidden" for="q">Search</label>
     <input id="q" name="q" type="search" placeholder="Search">
   </form>
@@ -58,13 +67,13 @@
 <footer role="contentinfo">
 <ul class="info-links">
  <li><a href="#top">Top of Page</a></li>
-  <li><a epub:type="toc" href="./table-of-contents.html">Table of Contents</a></li>
+  <li><a epub:type="toc" href="<?php echo $path; ?>/table-of-contents.html">Table of Contents</a></li>
  <li><a epub:type="other-credits" title="CC BY 3.0 US" property="license" href="https://creativecommons.org/licenses/by/3.0/us/">
   License</a></li>
  <li property="publisher provider">My Library</li>
 </ul>
 </footer>
 
-<script async src="./meta/scripts/main.js"></script>
+<script async src="<?php echo $path; ?>/meta/scripts/main.js"></script>
 </body>
 </html>
