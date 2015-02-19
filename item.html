@@ -50,7 +50,7 @@ if($result->num_rows > 0) {
 <meta property="og:title" content="<?php echo $item_name; ?> - <?php echo $item_creator; ?>">
 <meta property="og:description" content="Opsis: Literary Arts Journal at Montana State University (MSU)">
 <meta property="og:image" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png">
-<meta property="og:url" content="<?php echo $protocol.$server.$path; ?>/item/<?php echo $id; ?>">
+<meta property="og:url" content="<?php echo $protocol.$server.$path; ?>/item/<?php echo $item_id; ?>">
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Montana State University (MSU) Library"/>
 <!-- End Social Media Tags -->
@@ -94,7 +94,7 @@ if ($fileName == 'item.html') {
     },
     "image": "<?php echo addslashes($item_image); ?>",
     "articleBody": "<?php echo urlencode($item_body); ?>",
-    "url": "<?php echo $protocol.$server.$path; ?>/item/<?php echo $id; ?>",
+    "url": "<?php echo $protocol.$server.$path; ?>/item/<?php echo $item_id; ?>",
     "datePublished": "<?php echo $item_date_created; ?>",
     "publisher": {
       "@type": "Organization",
