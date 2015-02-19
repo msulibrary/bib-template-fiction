@@ -1,14 +1,19 @@
 <?php
+//get and set url protocol
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+//set and sanitize global variables for URL construction
+$server = htmlentities(strip_tags($_SERVER['SERVER_NAME']));
+$path = htmlentities(strip_tags(dirname($_SERVER['PHP_SELF'])));
+$fileName = htmlentities(strip_tags(basename($_SERVER['SCRIPT_NAME'])));
+$fileNameURI = htmlentities(strip_tags($_SERVER['REQUEST_URI']));
 //get id variable from URL
 $id = isset($_GET['id']) ? strip_tags((int)$_GET['id']) : null;
-//echo $id;
 
 //bring database parameters and functions onto page
 include_once './meta/assets/dbconnect.inc';
 
 //get data to generate chapter data
 $query = 'SELECT * FROM schema_fiction.bodymatter WHERE id = '.$id;
-//echo $query;
 
 $result = $dbconn->query($query) or die($dbconn->error.__LINE__);
 if($result->num_rows > 0) {
@@ -37,44 +42,41 @@ if($result->num_rows > 0) {
 <!-- Social Media Tags -->
 <meta name="twitter:title" content="<?php echo $item_name; ?> - <?php echo $item_creator; ?>">
 <meta name="twitter:description" content="Opsis: Literary Arts Journal at Montana State University (MSU)">
-<meta name="twitter:image:src" content="http://arc.lib.montana.edu/book/opsis/meta/img/opsis.png">
-<meta name="twitter:url" content="http://arc.lib.montana.edu/book/opsis/item/<?php echo $item_id; ?>">
+<meta name="twitter:image:src" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png">
+<meta name="twitter:url" content="<?php echo $protocol.$server.$path; ?>/item/<?php echo $item_id; ?>">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@msulibrary">
 <meta name="twitter:creator" content="@msulibrary">
 <meta property="og:title" content="<?php echo $item_name; ?> - <?php echo $item_creator; ?>">
 <meta property="og:description" content="Opsis: Literary Arts Journal at Montana State University (MSU)">
-<meta property="og:image" content="http://arc.lib.montana.edu/book/opsis/meta/img/opsis.png">
-<meta property="og:url" content="http://arc.lib.montana.edu/book/opsis/item/<?php echo $item_id; ?>">
+<meta property="og:image" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png">
+<meta property="og:url" content="<?php echo $protocol.$server.$path; ?>/item/<?php echo $id; ?>">
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Montana State University (MSU) Library"/>
 <!-- End Social Media Tags -->
 <?php
-//get default filename value
-$fileName = htmlentities(strip_tags(basename($_SERVER['SCRIPT_NAME'])));
-//get default value for id
-$fileID = isset($_GET['id']) ? strip_tags((int)$_GET['id']) : null;
+//set $fileName rel=canonical conditional
 if ($fileName == 'item.html') {
 ?>
-<link rel="canonical" href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF']).'/item/'.$fileID; ?>"/>
+<link rel="canonical" href="<?php echo $protocol.$server.$path; ?>/item/<?php echo $id; ?>"/>
 <?php
 } else {
 ?>
-<link rel="canonical" href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']; ?>"/>
+<link rel="canonical" href="<?php echo $protocol.$server.$fileNameURI; ?>"/>
 <?php
 //end $fileName rel=canonical conditional
 }
 ?>
-<link rel="shortcut icon" href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/favicon.ico" type="image/x-icon"/>
-<link rel="icon" href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/favicon.ico" type="image/x-icon"/>
-<link rel="stylesheet" href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/meta/styles/master.css"/>
+<link rel="shortcut icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
+<link rel="stylesheet" href="<?php echo $path; ?>/meta/styles/master.css"/>
 <script type="application/ld+json">
 {
   "@context" : "http://schema.org",
   "@type": "CreativeWork",
   "name": "Opsis: Literary Arts Journal at Montana State University (MSU)",
   "description": "Opsis is the literature and arts magazine of Montana State University",
-  "image": "http://arc.lib.montana.edu/book/opsis/meta/img/opsis.png",
+  "image": "<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png",
   "datePublished": "<?php echo $item_date_created; ?>",
   "inLanguage" : "<?php echo $item_language; ?>",
   "genre" : "Journals (Publications)",
@@ -92,7 +94,7 @@ if ($fileName == 'item.html') {
     },
     "image": "<?php echo addslashes($item_image); ?>",
     "articleBody": "<?php echo urlencode($item_body); ?>",
-    "url": "<?php echo 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/item/'.$id; ?>",
+    "url": "<?php echo $protocol.$server.$path; ?>/item/<?php echo $id; ?>",
     "datePublished": "<?php echo $item_date_created; ?>",
     "publisher": {
       "@type": "Organization",
@@ -106,19 +108,19 @@ if ($fileName == 'item.html') {
     "name": "<?php echo $item_publisher; ?>",
     "sameAs": "http://dbpedia.org/resource/Montana_State_University"
   },
-  "url" : "<?php echo 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/'; ?>"
+  "url" : "<?php echo $protocol.$server.$path; ?>/"
 }
 </script>
 </head>
 <body>
 
 <header role="banner">
-<a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/item.html?id=<?php echo $item_id; ?>" property="url" rel="bookmark home"><span property="title" epub:type="fulltitle"><?php echo $item_name; ?></span> by <?php echo $item_creator; ?></a>
+<a href="<?php echo $path; ?>/item/<?php echo $item_id; ?>" property="url" rel="bookmark home"><span property="title" epub:type="fulltitle"><?php echo $item_name; ?></span> by <?php echo $item_creator; ?></a>
 <nav>
  <p class="breadcrumb" vocab="http://rdf.data-vocabulary.org/rdf.xml#">
-  <span typeof="Breadcrumb"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/index.html" rel="index url" property="title">Home</a></span> >
-  <span typeof="Breadcrumb"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/table-of-contents.html" rel="url" property="title">Table of Contents</a></span> >
-  <span typeof="Breadcrumb"><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/item/<?php echo $item_id; ?>" rel="bookmark url" property="title">Current</a></span>
+  <span typeof="Breadcrumb"><a href="<?php echo $path; ?>/index.html" rel="index url" property="title">Home</a></span> >
+  <span typeof="Breadcrumb"><a href="<?php echo $path; ?>/table-of-contents.html" rel="url" property="title">Table of Contents</a></span> >
+  <span typeof="Breadcrumb"><a href="<?php echo $path; ?>/item/<?php echo $item_id; ?>" rel="bookmark url" property="title">Current</a></span>
  </p>
 </nav>
 </header>
@@ -142,7 +144,7 @@ if ($item_body != null && $item_genre == 'Poetry') {
 }
 if ($item_image != null) {
 ?>
-  <figure class="image" property="image"><img src="<?php echo dirname($_SERVER['PHP_SELF']); ?>/meta/img/<?php echo $item_image; ?>" /></figure>
+  <figure class="image" property="image"><img src="<?php echo $path; ?>/meta/img/<?php echo $item_image; ?>" /></figure>
 <?php
 }
 if ($item_body != null && $item_genre != 'Prose' && $item_genre != 'Poetry' && $item_image == null) {
@@ -171,10 +173,10 @@ if ($item_body != null && $item_genre != 'Prose' && $item_genre != 'Poetry' && $
 <h2>Opsis: Literary Arts Journal</h2>
 <nav epub:type="landmarks">
 <ul>
-  <li><a epub:type="toc" href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/table-of-contents.html">Table of Contents</a></li>
-  <li><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/index.html">Title Page</a></li>
+  <li><a epub:type="toc" href="<?php echo $path; ?>/table-of-contents.html">Table of Contents</a></li>
+  <li><a href="<?php echo $path; ?>/index.html">Title Page</a></li>
   <li>
-  <form class="search" role="search" action="<?php echo dirname($_SERVER['PHP_SELF']); ?>/search?">
+  <form class="search" role="search" action="<?php echo $path; ?>/search?">
     <label class="hidden" for="q">Search</label>
     <input id="q" name="q" type="search" placeholder="Search">
   </form>
@@ -186,15 +188,15 @@ if ($item_body != null && $item_genre != 'Prose' && $item_genre != 'Poetry' && $
 
 <footer role="contentinfo">
 <ul class="info-links">
-  <li><a href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/item.html?id=<?php echo $item_id; ?>#top">Top of Page</a></li>
-  <li><a epub:type="toc" href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/table-of-contents.html">Table of Contents</a></li>
+  <li><a href="<?php echo $path; ?>/item/<?php echo $item_id; ?>#top">Top of Page</a></li>
+  <li><a epub:type="toc" href="<?php echo $path; ?>/table-of-contents.html">Table of Contents</a></li>
   <li><a epub:type="other-credits" title="CC BY 3.0 US" property="license" href="https://creativecommons.org/licenses/by/3.0/us/">
   License</a></li>
   <li property="publisher provider"><?php echo $item_publisher; ?></li>
 </ul>
 </footer>
 
-<script async src="<?php echo dirname($_SERVER['PHP_SELF']); ?>/meta/scripts/main.js"></script>
+<script async src="<?php echo $path; ?>/meta/scripts/main.js"></script>
 <?php
   }
 $result->close();
