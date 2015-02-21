@@ -16,6 +16,11 @@ AddType font/otf .otf
 AddType font/x-woff .woff
 AddType image/svg+xml .svg
  
+#set custom error page for Apache to return
+#https://httpd.apache.org/docs/current/mod/core.html#errordocument
+#NOTE: set base here to your local directory
+ErrorDocument 404 /ADD-YOUR-LOCAL-BASE-DIRECTORY-HERE/404.html
+
 #compress html, css, javascript, font, and miscellaneous data files
 #https://httpd.apache.org/docs/current/mod/mod_deflate.html
 <IfModule mod_deflate.c>
@@ -49,7 +54,7 @@ AddOutputFilterByType DEFLATE "text/css" "text/html" "text/javascript" "text/pla
   RewriteBase /book/opsis/
   RewriteRule item/([-_a-zA-Z0-9]+) item.html?id=$1 [L,QSA]
 
-  #remove need to have .php extension in filename
+  #remove need to have .html extension in filename
   RewriteCond %{REQUEST_FILENAME}.html -f
   RewriteRule ^(.*)$ $1.html [L,QSA]
 </IfModule>
