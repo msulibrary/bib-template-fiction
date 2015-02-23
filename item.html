@@ -166,10 +166,11 @@ if ($item_body != null && $item_genre != 'Prose' && $item_genre != 'Poetry' && $
 function readTime($text) {
   $words = str_word_count(strip_tags($text));
   $min = floor($words / 200);
-  if($min === 0){
+  if($min != 0) {
+    return $min.' min to read';
+  } else {
     return '< 1 min to read';
   }
-  return $min . ' min to read';
 }
 ?>
     <dt>Read Time:</dt>
