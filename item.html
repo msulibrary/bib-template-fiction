@@ -165,16 +165,17 @@ if ($item_body != null && $item_genre != 'Prose' && $item_genre != 'Poetry' && $
 <?php
 function readTime($text) {
   $words = str_word_count(strip_tags($text));
-  $min = floor($words / 200);
-  if($min != 0) {
-    return $min.' min to read';
+  $minutes = floor($words / 200);
+  if($minutes != 0) {
+    return $minutes;
   } else {
-    return '< 1 min to read';
+    return '< 1';
   }
 }
+$readTime = readTime($item_body);
 ?>
     <dt>Read Time:</dt>
-    <dd property="timeRequired"><?php echo readTime($item_body); ?></dd>
+    <dd><time property="timeRequired" datetime="PT<?php echo $readTime; ?>M"><?php echo $readTime; ?> minute(s)</time></dd>
     <dt>Page:</dt>
     <dd epub:type="pagebreak" class="pagination"><?php echo $item_id; ?></dd>
   </dl>
