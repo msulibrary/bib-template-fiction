@@ -162,6 +162,18 @@ if ($item_body != null && $item_genre != 'Prose' && $item_genre != 'Poetry' && $
     <dd property="genre" typeof="URL" resource="http://dbpedia.org/page/<?php echo str_replace(' ', '_', $item_genre); ?>"><a property="url" href="https://en.wikipedia.org/wiki/<?php echo str_replace(' ', '_', $item_genre); ?>"><?php echo $item_genre; ?></a></dd>
     <dt>Context:</dt>
     <dd property="additionalType" typeof="URL" resource="http://dbpedia.org/page/<?php echo str_replace(' ', '_', $item_about); ?>"><a property="url" href="https://en.wikipedia.org/wiki/<?php echo str_replace(' ', '_', $item_about); ?>"><?php echo $item_about; ?></a></dd>
+<?php
+function readTime($text) {
+  $words = str_word_count(strip_tags($text));
+  $min = floor($words / 200);
+  if($min === 0){
+    return '< 1 min to read';
+  }
+  return $min . ' min to read';
+}
+?>
+    <dt>Read Time:</dt>
+    <dd property="timeRequired"><?php echo readTime($item_body); ?></dd>
     <dt>Page:</dt>
     <dd epub:type="pagebreak" class="pagination"><?php echo $item_id; ?></dd>
   </dl>
