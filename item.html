@@ -9,6 +9,16 @@ $fileNameURI = htmlentities(strip_tags($_SERVER['REQUEST_URI']));
 //get id variable from URL
 $id = isset($_GET['id']) ? strip_tags((int)$_GET['id']) : null;
 
+function readTime($text) {
+  $words = str_word_count(strip_tags($text));
+  $minutes = floor($words / 200);
+  if($minutes != 0) {
+    return $minutes;
+  } else {
+    return '< 1';
+  }
+}
+
 //bring database parameters and functions onto page
 include_once './meta/assets/dbconnect.inc';
 
@@ -30,6 +40,8 @@ if($result->num_rows > 0) {
     $item_about = $item->additionalType2;
     $item_learning_resource_type = $item->learningResourceType;
     $item_language = $item->inLanguage;
+    //estimate read time, set here for global use
+    $readTime = readTime($item_body);
 ?>
 <!doctype html>
 <html lang="en" vocab="http://schema.org/" typeof="CreativeWork" xmlns:epub="http://www.idpf.org/2007/ops">
@@ -95,6 +107,7 @@ if ($fileName == 'item.html') {
     "image": "<?php echo addslashes($item_image); ?>",
     "articleBody": "<?php echo urlencode($item_body); ?>",
     "url": "<?php echo $protocol.$server.$path; ?>/item/<?php echo $item_id; ?>",
+    "timeRequired": "PT<?php echo $readTime; ?>M",
     "datePublished": "<?php echo $item_date_created; ?>",
     "publisher": {
       "@type": "Organization",
@@ -162,18 +175,6 @@ if ($item_body != null && $item_genre != 'Prose' && $item_genre != 'Poetry' && $
     <dd property="genre" typeof="URL" resource="http://dbpedia.org/page/<?php echo str_replace(' ', '_', $item_genre); ?>"><a property="url" href="https://en.wikipedia.org/wiki/<?php echo str_replace(' ', '_', $item_genre); ?>"><?php echo $item_genre; ?></a></dd>
     <dt>Context:</dt>
     <dd property="additionalType" typeof="URL" resource="http://dbpedia.org/page/<?php echo str_replace(' ', '_', $item_about); ?>"><a property="url" href="https://en.wikipedia.org/wiki/<?php echo str_replace(' ', '_', $item_about); ?>"><?php echo $item_about; ?></a></dd>
-<?php
-function readTime($text) {
-  $words = str_word_count(strip_tags($text));
-  $minutes = floor($words / 200);
-  if($minutes != 0) {
-    return $minutes;
-  } else {
-    return '< 1';
-  }
-}
-$readTime = readTime($item_body);
-?>
     <dt>Read Time:</dt>
     <dd><time property="timeRequired" datetime="PT<?php echo $readTime; ?>M"><?php echo $readTime; ?> minute(s)</time></dd>
     <dt>Page:</dt>
