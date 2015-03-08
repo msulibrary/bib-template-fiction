@@ -28,7 +28,7 @@ if ($type == 'search') {
 	$query = "
 		SELECT *
 		FROM schema_fiction.bodymatter
-		WHERE MATCH (name, creator, additionalType, additionalType2, articleBody)
+		WHERE MATCH (name, creator, additionalType, additionalType2, text)
 		AGAINST ('$q*' IN BOOLEAN MODE)
 		GROUP BY id
 		ORDER BY id
