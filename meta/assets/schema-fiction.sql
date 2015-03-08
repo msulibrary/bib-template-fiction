@@ -18,12 +18,12 @@ CREATE TABLE IF NOT EXISTS `bodymatter` (
   `description` text,
   `about` text,
   `image` varchar(140) DEFAULT NULL,
-  `text` text NOT NULL,
-  `articleSection` text NOT NULL COMMENT 'http://schema.org/Article',
-  `publicationType` varchar(255) NOT NULL COMMENT 'http://schema.org/MedicalScholarlyArticle',
+  `text` text,
+  `isPartOf` varchar(255) DEFAULT NULL,
+  `publicationType` varchar(255) DEFAULT NULL COMMENT 'http://schema.org/MedicalScholarlyArticle',
   `additionalType` varchar(255) DEFAULT NULL,
   `additionalType2` varchar(255) DEFAULT NULL,
-  `isbn` varchar(40) NOT NULL,
+  `isbn` varchar(40) DEFAULT NULL,
   `genre` varchar(140) DEFAULT NULL,
   `keywords` varchar(255) DEFAULT NULL,
   `publisher` varchar(255) DEFAULT NULL,
@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS `bodymatter` (
   `learningResourceType` varchar(140) DEFAULT NULL,
   `inLanguage` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  FULLTEXT KEY `search` (`name`,`creator`,`description`,`genre`,`keywords`,`dateCreated`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
+  FULLTEXT KEY `search` (`name`,`creator`,`description`,`text`,`genre`,`keywords`,`dateCreated`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
 
 --
 -- Dumping data for table `bodymatter`
