@@ -31,6 +31,7 @@
 @-o-viewport{width:device-width;zoom:1}
 @viewport{width:device-width;zoom:1}
 article,aside,audio,canvas,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary,video{display:block;}
+audio,canvas,iframe,img,svg,video{vertical-align:middle;}
 html {background:#eff1f3;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
 html,body {width:100%;height:100%;margin:0;padding:0;}
 body {background:#fff;color:#000;font-family:Lato,"Helvetica Neue",Arial,Helvetica,sans-serif;font-size:100%;line-height:1.5em;}
@@ -44,7 +45,6 @@ body.low  {background-color: #e5e0d4; color: #333;}*/
 /*justification*/
 /*body.justified .body_text p {text-align:justify;}
 body.ragged .body_text p {text-align:left;}*/
-
 
 a {font-weight:700;text-decoration:none;}
 a:link,a:visited {color:#369;}
