@@ -1,0 +1,99 @@
+<?php
+//get and set url protocol
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+//set and sanitize global variables for URL construction
+$server = htmlentities(strip_tags($_SERVER['SERVER_NAME']));
+$path = htmlentities(strip_tags(dirname($_SERVER['PHP_SELF'])));
+$fileName = htmlentities(strip_tags(basename($_SERVER['SCRIPT_NAME'])));
+$fileNameURI = htmlentities(strip_tags($_SERVER['REQUEST_URI']));
+//get id variable from URL
+$id = isset($_GET['id']) ? strip_tags((int)$_GET['id']) : null;
+
+function readTime($text) {
+  $words = str_word_count(strip_tags($text));
+  $minutes = floor($words / 200);
+  if($minutes != 0) {
+    return $minutes;
+  } else {
+    return '< 1';
+  }
+}
+
+//set header for json file and allow cross-domain requests
+header('Content-type: application/json');
+header("access-control-allow-origin: *");
+
+//bring database parameters and functions onto page
+include_once './meta/assets/dbconnect.inc';
+
+//get data to generate chapter data
+$query = 'SELECT * FROM schema_fiction.bodymatter WHERE id = '.$id;
+
+$result = $dbconn->query($query) or die($dbconn->error.__LINE__);
+if($result->num_rows > 0) {
+  while($item = $result->fetch_object()) {
+    $item_id = $item->id;
+    $item_name = $item->name;
+    $item_creator = $item->creator;
+    $item_publisher = $item->publisher;
+    $item_body = $item->text;
+    $item_image = $item->image;
+    $item_date_created = $item->dateCreated;
+    $item_date_modified = $item->dateModified;
+    $item_genre = $item->additionalType;
+    $item_about = $item->additionalType2;
+    $item_learning_resource_type = $item->learningResourceType;
+    $item_language = $item->inLanguage;
+    //estimate read time, set here for global use
+    $readTime = readTime($item_body);
+
+?>
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type": "CreativeWork",
+  "name": "Opsis: Literary Arts Journal at Montana State University (MSU)",
+  "description": "Opsis is the literature and arts magazine of Montana State University",
+  "image": "<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png",
+  "datePublished": "<?php echo $item_date_created; ?>",
+  "inLanguage" : "<?php echo $item_language; ?>",
+  "genre" : "Journals (Publications)",
+  "learningResourceType" : "<?php echo $item_learning_resource_type; ?>",
+  "creator": {
+    "@type": "Person",
+    "name": "Multiple Authors"
+  },
+  "Article": {
+    "@type": "Article",
+    "name": "<?php echo $item_name; ?>",
+    "author": {
+      "@type": "Person",
+      "name": "<?php echo $item_creator; ?>"
+    },
+    "image": "<?php echo addslashes($item_image); ?>",
+    "articleBody": "<?php echo urlencode($item_body); ?>",
+    "url": "<?php echo $protocol.$server.$path; ?>/item/<?php echo $item_id; ?>",
+    "timeRequired": "PT<?php echo $readTime; ?>M",
+    "datePublished": "<?php echo $item_date_created; ?>",
+    "publisher": {
+      "@type": "Organization",
+      "name": "<?php echo $item_publisher; ?>"
+    },
+    "additionalType": "http://dbpedia.org/resource/<?php echo str_replace(' ', '_', $item_genre); ?>",
+    "additionalType": "http://dbpedia.org/resource/<?php echo str_replace(' ', '_', $item_about); ?>"
+	},
+  "publisher": {
+    "@type": "Organization",
+    "name": "<?php echo $item_publisher; ?>",
+    "sameAs": "http://dbpedia.org/resource/Montana_State_University"
+  },
+  "url" : "<?php echo $protocol.$server.$path; ?>/"
+}
+</script>
+
+<?php
+  }
+$result->close();
+}
+$dbconn->close();
+?>
