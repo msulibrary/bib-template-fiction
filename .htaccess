@@ -1,7 +1,7 @@
-#add handler that allows html and xml to work dynamically as PHP
+#add handler that allows html, xml, and json to work dynamically as PHP
 #https://httpd.apache.org/docs/current/mod/mod_mime.html#addtype
 #https://httpd.apache.org/docs/current/mod/mod_mime.html#addhandler
-AddType application/x-httpd-php .html .xml
+AddType application/x-httpd-php .html .xml .json
 #AddHandler x-httpd-php5 .html .xml
 
 #serve all resources labeled as 'text/html' or 'text/plain' with the media type 'charset' parameter set to UTF-8'
@@ -18,8 +18,7 @@ AddType image/svg+xml .svg
  
 #set custom error page for Apache to return
 #https://httpd.apache.org/docs/current/mod/core.html#errordocument
-#NOTE: set base here to your local directory
-ErrorDocument 404 /ADD-YOUR-LOCAL-BASE-DIRECTORY-HERE/404.html
+ErrorDocument 404 /book/opsis/404.html
 
 #compress html, css, javascript, font, and miscellaneous data files
 #https://httpd.apache.org/docs/current/mod/mod_deflate.html
