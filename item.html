@@ -89,6 +89,7 @@ if ($fileName == 'item.html') {
 //end $fileName rel=canonical conditional
 }
 ?>
+<link rel="alternate" type="application/ld+json" href="<?php echo $protocol.$server.$path; ?>/item.json?id=<?php echo $id; ?>" title="<?php echo $item_name; ?> (JSON-LD format)"/>
 <link rel="shortcut icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
 <link rel="icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
 <link rel="stylesheet" href="<?php echo $path; ?>/meta/styles/master.css"/>
