@@ -6,8 +6,18 @@ $server = htmlentities(strip_tags($_SERVER['SERVER_NAME']));
 $path = htmlentities(strip_tags(dirname($_SERVER['PHP_SELF'])));
 $fileName = htmlentities(strip_tags(basename($_SERVER['SCRIPT_NAME'])));
 $fileNameURI = htmlentities(strip_tags($_SERVER['REQUEST_URI']));
+$fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+$jsonURI = $protocol.$server.$path.'/item/'.$item_id;
+//end(explode('.',$fileName));
+//echo $fileExtension;
+
 //get id variable from URL
 $id = isset($_GET['id']) ? strip_tags((int)$_GET['id']) : null;
+
+if ($fileExtension == 'json') {
+  header('Location: $jsonURI');
+  exit;
+}
 
 function readTime($text) {
   $words = str_word_count(strip_tags($text));
@@ -82,48 +92,6 @@ if ($fileName == 'item.html') {
 <link rel="shortcut icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
 <link rel="icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
 <link rel="stylesheet" href="<?php echo $path; ?>/meta/styles/master.css"/>
-<script type="application/ld+json">
-{
-  "@context" : "http://schema.org",
-  "@type": "CreativeWork",
-  "name": "Opsis: Literary Arts Journal at Montana State University (MSU)",
-  "description": "Opsis is the literature and arts magazine of Montana State University",
-  "image": "<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png",
-  "datePublished": "<?php echo $item_date_created; ?>",
-  "inLanguage" : "<?php echo $item_language; ?>",
-  "genre" : "Journals (Publications)",
-  "learningResourceType" : "<?php echo $item_learning_resource_type; ?>",
-  "creator": {
-    "@type": "Person",
-    "name": "Multiple Authors"
-  },
-  "Article": {
-    "@type": "Article",
-    "name": "<?php echo $item_name; ?>",
-    "author": {
-      "@type": "Person",
-      "name": "<?php echo $item_creator; ?>"
-    },
-    "image": "<?php echo addslashes($item_image); ?>",
-    "articleBody": "<?php echo urlencode($item_body); ?>",
-    "url": "<?php echo $protocol.$server.$path; ?>/item/<?php echo $item_id; ?>",
-    "timeRequired": "PT<?php echo $readTime; ?>M",
-    "datePublished": "<?php echo $item_date_created; ?>",
-    "publisher": {
-      "@type": "Organization",
-      "name": "<?php echo $item_publisher; ?>"
-    },
-    "additionalType": "http://dbpedia.org/resource/<?php echo str_replace(' ', '_', $item_genre); ?>",
-    "additionalType": "http://dbpedia.org/resource/<?php echo str_replace(' ', '_', $item_about); ?>"
-	},
-  "publisher": {
-    "@type": "Organization",
-    "name": "<?php echo $item_publisher; ?>",
-    "sameAs": "http://dbpedia.org/resource/Montana_State_University"
-  },
-  "url" : "<?php echo $protocol.$server.$path; ?>/"
-}
-</script>
 </head>
 <body>
 
