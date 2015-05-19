@@ -27,7 +27,7 @@ AddType image/svg+xml .svg
  
 #set custom error page for Apache to return
 #https://httpd.apache.org/docs/current/mod/core.html#errordocument
-ErrorDocument 404 /book/opsis/404.html
+ErrorDocument 404 /ADD-YOUR-LOCAL-BASE-DIRECTORY-HERE/404.html
 
 #compress html, css, javascript, font, and miscellaneous resources
 #https://httpd.apache.org/docs/current/mod/mod_deflate.html
