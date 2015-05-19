@@ -8,22 +8,31 @@ AddType application/x-httpd-php .html .xml .json
 #https://httpd.apache.org/docs/current/mod/core.html#adddefaultcharset
 AddDefaultCharset utf-8
 
-#add correct content-type for fonts
+#serve correct media type (MIME type) for resources
 #https://httpd.apache.org/docs/current/mod/mod_mime.html#addtype
+AddType application/atom+xml .atom
+AddType application/json .json
+AddType application/ld+json .jsonld
+AddType application/rss+xml .rss
+AddType application/xml .rdf .xml
 AddType application/vnd.ms-fontobject .eot
+AddType application/x-font-ttf .ttc .ttf
 AddType font/ttf .ttf
+AddType font/opentype .otf
 AddType font/otf .otf
+AddType application/font-woff .woff
 AddType font/x-woff .woff
+AddType application/font-woff2 .woff2
 AddType image/svg+xml .svg
  
 #set custom error page for Apache to return
 #https://httpd.apache.org/docs/current/mod/core.html#errordocument
 ErrorDocument 404 /book/opsis/404.html
 
-#compress html, css, javascript, font, and miscellaneous data files
+#compress html, css, javascript, font, and miscellaneous resources
 #https://httpd.apache.org/docs/current/mod/mod_deflate.html
 <IfModule mod_deflate.c>
-AddOutputFilterByType DEFLATE "text/css" "text/html" "text/javascript" "text/plain" "text/xml" "application/x-javascript" "application/javascript" "application/json" "application/ld+json" "application/rdf+xml" "application/rss+xml" "application/x-font-woff" "application/x-font-ttf" "application/vnd.ms-fontobject" "font/eot" "font/opentype" "font/otf" "font/ttf" "font/x-woff" "image/svg+xml"
+AddOutputFilterByType DEFLATE "text/css" "text/html" "text/javascript" "text/plain" "text/xml" "application/x-javascript" "application/javascript" "application/json" "application/ld+json" "application/rdf+xml" "application/rss+xml" "application/x-font-woff" "application/x-font-ttf" "application/vnd.ms-fontobject" "font/eot" "font/opentype" "font/otf" "font/ttf" "font/x-woff" "image/bmp" "image/jpeg" "image/svg+xml" "image/vnd.microsoft.icon" "image/x-icon" 
 </IfModule>
 
 #set expires headers to improve caching
@@ -57,3 +66,12 @@ AddOutputFilterByType DEFLATE "text/css" "text/html" "text/javascript" "text/pla
   RewriteCond %{REQUEST_FILENAME}.html -f
   RewriteRule ^(.*)$ $1.html [L,QSA]
 </IfModule>
+
+#redirect from the `http://` to the `https://` version of the URL.
+#https://wiki.apache.org/httpd/RewriteHTTPToHTTPS
+
+#<IfModule mod_rewrite.c>
+#  RewriteEngine On
+#  RewriteCond %{HTTPS} !=on
+#  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+#</IfModule>
