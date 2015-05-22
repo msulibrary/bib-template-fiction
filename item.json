@@ -93,7 +93,7 @@ if($result->num_rows > 0) {
     "actionStatus": "PendingActionStatus",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": "<?php echo $protocol.$server.$path; ?>/"
+      "urlTemplate": "<?php echo $protocol.$server.$path; ?>/item/<?php echo $item_id; ?>"
     }
   }
 }
