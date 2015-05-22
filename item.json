@@ -50,15 +50,15 @@ if($result->num_rows > 0) {
 ?>
 <script type="application/ld+json">
 {
-  "@context" : "http://schema.org",
+  "@context": "http://schema.org",
   "@type": "CreativeWork",
   "name": "Opsis: Literary Arts Journal at Montana State University (MSU)",
   "description": "Opsis is the literature and arts magazine of Montana State University",
   "image": "<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png",
   "datePublished": "<?php echo $item_date_created; ?>",
-  "inLanguage" : "<?php echo $item_language; ?>",
-  "genre" : "Journals (Publications)",
-  "learningResourceType" : "<?php echo $item_learning_resource_type; ?>",
+  "inLanguage": "<?php echo $item_language; ?>",
+  "genre": "Journals (Publications)",
+  "learningResourceType": "<?php echo $item_learning_resource_type; ?>",
   "creator": {
     "@type": "Person",
     "name": "Multiple Authors"
@@ -80,22 +80,22 @@ if($result->num_rows > 0) {
       "name": "<?php echo $item_publisher; ?>"
     },
     "additionalType": "http://dbpedia.org/resource/<?php echo str_replace(' ', '_', $item_genre); ?>",
-    "additionalType": "http://dbpedia.org/resource/<?php echo str_replace(' ', '_', $item_about); ?>"
-	},
+    "additionalType": "http://dbpedia.org/resource/<?php echo str_replace(' ', '_', $item_about); ?>",
+    "potentialAction": {
+      "@type": "ReadAction",
+      "actionStatus": "PendingActionStatus",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "<?php echo $protocol.$server.$path; ?>/item/<?php echo $item_id; ?>"
+      }
+    }
+  },
   "publisher": {
     "@type": "Organization",
     "name": "<?php echo $item_publisher; ?>",
     "sameAs": "http://dbpedia.org/resource/Montana_State_University"
   },
-  "url" : "<?php echo $protocol.$server.$path; ?>/",
-  "potentialAction": {
-    "@type": "ReadAction",
-    "actionStatus": "PendingActionStatus",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "<?php echo $protocol.$server.$path; ?>/item/<?php echo $item_id; ?>"
-    }
-  }
+  "url": "<?php echo $protocol.$server.$path; ?>/"
 }
 </script>
 
