@@ -35,8 +35,24 @@ $fileNameURI = htmlentities(strip_tags($_SERVER['REQUEST_URI']));
 <link rel="icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
 <link rel="stylesheet" href="<?php echo $path; ?>/meta/styles/master.css"/>
 <link rel="stylesheet" href="<?php echo $path; ?>/meta/styles/home.css"/>
+<?php
+if ($_SERVER['HTTP_HOST'] == "ADD-YOUR-DOMAIN-HERE") {
+?>
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'ADD-YOUR-GOOGLE-ANALYTICS-ACCOUNT-ID-HERE', 'auto', {'allowLinker': true});
+	ga('require', 'linker');
+	ga('linker:autoLink', ['lib.montana.edu']);
+	ga('send', 'pageview');
+</script>
+<?php
+}
+?>
 </head>
-<body>
+<body property="mainEntity" typeof="Book">
 
 <main epub:type="cover" role="main" id="top">
 <a href="#menu" class="control open">menu</a>
