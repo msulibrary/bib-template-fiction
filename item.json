@@ -52,19 +52,24 @@ if($result->num_rows > 0) {
 {
   "@context": "http://schema.org",
   "@type": "CreativeWork",
-  "name": "Opsis: Literary Arts Journal at Montana State University (MSU)",
-  "description": "Opsis is the literature and arts magazine of Montana State University",
-  "image": "<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png",
-  "datePublished": "<?php echo $item_date_created; ?>",
-  "inLanguage": "<?php echo $item_language; ?>",
-  "genre": "Journals (Publications)",
-  "learningResourceType": "<?php echo $item_learning_resource_type; ?>",
-  "creator": {
-    "@type": "Person",
-    "name": "Multiple Authors"
+  "@id": "<?php echo $protocol.$server.$path; ?>/",
+  "mainEntity": {
+    "@type": "Book",
+    "name": "Opsis: Literary Arts Journal at Montana State University (MSU)",
+    "description": "Opsis is the literature and arts magazine of Montana State University",
+    "image": "<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png",
+    "datePublished": "<?php echo $item_date_created; ?>",
+    "inLanguage": "<?php echo $item_language; ?>",
+    "genre": "Journals (Publications)",
+    "learningResourceType": "<?php echo $item_learning_resource_type; ?>",
+    "creator": {
+      "@type": "Person",
+      "name": "Multiple Authors"
+    }
   },
   "Article": {
     "@type": "Article",
+    "@id": "<?php echo $protocol.$server.$path; ?>/item/<?php echo $item_id; ?>",
     "name": "<?php echo $item_name; ?>",
     "author": {
       "@type": "Person",
@@ -92,6 +97,7 @@ if($result->num_rows > 0) {
   },
   "publisher": {
     "@type": "Organization",
+    "@id": "http://dbpedia.org/resource/Montana_State_University",  
     "name": "<?php echo $item_publisher; ?>",
     "sameAs": "http://dbpedia.org/resource/Montana_State_University"
   },
