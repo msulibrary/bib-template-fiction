@@ -62,29 +62,29 @@ if($result->num_rows > 0) {
 <title><?php echo $item_name; ?> - Opsis: Literary Arts Journal @ Montana State University (MSU)</title>
 <meta name="description" property="description" content="<?php echo $item_name; ?> - item from Opsis, a Literary Arts Journal published by Montana State University (MSU) students"/>
 <!-- Social Media Tags -->
-<meta name="twitter:title" content="<?php echo $item_name; ?> - <?php echo $item_creator; ?>">
-<meta name="twitter:description" content="Opsis: Literary Arts Journal at Montana State University (MSU)">
-<meta name="twitter:image:src" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png">
-<meta name="twitter:url" content="<?php echo $protocol.$server.$path; ?>/item/<?php echo $item_id; ?>">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@msulibrary">
-<meta name="twitter:creator" content="@msulibrary">
-<meta property="og:title" content="<?php echo $item_name; ?> - <?php echo $item_creator; ?>">
-<meta property="og:description" content="Opsis: Literary Arts Journal at Montana State University (MSU)">
-<meta property="og:image" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png">
-<meta property="og:url" content="<?php echo $protocol.$server.$path; ?>/item/<?php echo $item_id; ?>">
-<meta property="og:type" content="website" />
+<meta name="twitter:title" content="<?php echo $item_name; ?> - <?php echo $item_creator; ?>"/>
+<meta name="twitter:description" content="Opsis: Literary Arts Journal at Montana State University (MSU)"/>
+<meta name="twitter:image:src" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png"/>
+<meta name="twitter:url" content="<?php echo $protocol.$server.$path; ?>/item/<?php echo $item_id; ?>"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="@msulibrary"/>
+<meta name="twitter:creator" content="@msulibrary"/>
+<meta property="og:title" content="<?php echo $item_name; ?> - <?php echo $item_creator; ?>"/>
+<meta property="og:description" content="Opsis: Literary Arts Journal at Montana State University (MSU)"/>
+<meta property="og:image" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png"/>
+<meta property="og:url" content="<?php echo $protocol.$server.$path; ?>/item/<?php echo $item_id; ?>"/>
+<meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Montana State University (MSU) Library"/>
 <!-- End Social Media Tags -->
 <?php
 //set $fileName rel=canonical conditional
 if ($fileName == 'item.html') {
 ?>
-<link rel="canonical" href="<?php echo $protocol.$server.$path; ?>/item/<?php echo $id; ?>"/>
+<link rel="canonical bookmark url" href="<?php echo $protocol.$server.$path; ?>/item/<?php echo $id; ?>"/>
 <?php
 } else {
 ?>
-<link rel="canonical" href="<?php echo $protocol.$server.$fileNameURI; ?>"/>
+<link rel="canonical bookmark url" href="<?php echo $protocol.$server.$fileNameURI; ?>"/>
 <?php
 //end $fileName rel=canonical conditional
 }
@@ -94,20 +94,20 @@ if ($fileName == 'item.html') {
 <link rel="icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
 <link rel="stylesheet" href="<?php echo $path; ?>/meta/styles/master.css"/>
 </head>
-<body>
+<body property="mainEntity" typeof="Book">
 
 <header role="banner">
 <a href="<?php echo $path; ?>/item/<?php echo $item_id; ?>" property="url" rel="bookmark home"><span property="title" epub:type="fulltitle"><?php echo $item_name; ?></span> by <?php echo $item_creator; ?></a>
 <nav>
- <p class="breadcrumb" vocab="http://rdf.data-vocabulary.org/rdf.xml#">
-  <span typeof="Breadcrumb"><a href="<?php echo $path; ?>/index.html" rel="index url" property="title">Home</a></span> >
-  <span typeof="Breadcrumb"><a href="<?php echo $path; ?>/table-of-contents.html" rel="url" property="title">Table of Contents</a></span> >
-  <span typeof="Breadcrumb"><a href="<?php echo $path; ?>/item/<?php echo $item_id; ?>" rel="bookmark url" property="title">Current</a></span>
+ <p class="breadcrumb" typeof="BreadcrumbList">
+  <span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" href="<?php echo $path; ?>/index.html" rel="index url" property="name">Home</a><meta property="position" content="1"/></span> >
+  <span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" href="<?php echo $path; ?>/table-of-contents.html" rel="url" property="name">Table of Contents</a><meta property="position" content="2"/></span> >
+  <span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" href="<?php echo $path; ?>/item/<?php echo $item_id; ?>" rel="url" property="name">Current</a><meta property="position" content="3"/></span>
  </p>
 </nav>
 </header>
 
-<main data-bookmark="#" id="top" epub:type="bodymatter chapter" role="main">
+<main data-bookmark="#" id="top" typeof="Article" epub:type="bodymatter chapter" role="main">
 <a href="#menu" class="control open">menu</a>
 <h1 property="title" epub:type="title"><?php echo $item_name; ?></h1>
 <section class="reading-view">
@@ -141,9 +141,9 @@ if ($item_body != null && $item_genre != 'Prose' && $item_genre != 'Poetry' && $
     <dt>Date:</dt>
     <dd property="datePublished"><?php echo $item_date_created; ?></dd>
     <dt>Category:</dt>
-    <dd property="genre" typeof="URL" resource="http://dbpedia.org/page/<?php echo str_replace(' ', '_', $item_genre); ?>"><a property="url" href="https://en.wikipedia.org/wiki/<?php echo str_replace(' ', '_', $item_genre); ?>"><?php echo $item_genre; ?></a></dd>
+    <dd property="genre" resource="http://dbpedia.org/page/<?php echo str_replace(' ', '_', $item_genre); ?>"><a property="url" href="https://en.wikipedia.org/wiki/<?php echo str_replace(' ', '_', $item_genre); ?>"><?php echo $item_genre; ?></a></dd>
     <dt>Context:</dt>
-    <dd property="additionalType" typeof="URL" resource="http://dbpedia.org/page/<?php echo str_replace(' ', '_', $item_about); ?>"><a property="url" href="https://en.wikipedia.org/wiki/<?php echo str_replace(' ', '_', $item_about); ?>"><?php echo $item_about; ?></a></dd>
+    <dd property="additionalType" resource="http://dbpedia.org/page/<?php echo str_replace(' ', '_', $item_about); ?>"><a property="url" href="https://en.wikipedia.org/wiki/<?php echo str_replace(' ', '_', $item_about); ?>"><?php echo $item_about; ?></a></dd>
     <dt>Read Time:</dt>
     <dd><time property="timeRequired" datetime="PT<?php echo $readTime; ?>M"><?php echo $readTime; ?> minute(s)</time></dd>
     <dt>Page:</dt>
