@@ -74,9 +74,9 @@ $dbconn->close();
 
 //output in requested format
 if ($format == 'json' && $rowCount != 0) {
-	header('Content-type: application/json');
-	header("access-control-allow-origin: *");
-	echo json_encode(array('kind'=>'API Request', 'totalResults'=>$rowCount, 'items'=>$items));
+        header('Content-type: application/json');
+        header('access-control-allow-origin: *');
+        echo json_encode(array('apiVersion'=>'1', 'kind'=>'API Request', 'method'=>$type, 'totalResults'=>$rowCount, 'items'=>$items));
 } elseif ($format == 'xml' && $rowCount != 0) {
 	header('Content-type: text/xml');
 	echo '<items>';
