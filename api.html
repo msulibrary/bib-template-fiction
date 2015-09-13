@@ -78,14 +78,19 @@ if ($format == 'json' && $rowCount != 0) {
         header('access-control-allow-origin: *');
         echo json_encode(array('apiVersion'=>'1', 'kind'=>'API Request', 'method'=>$type, 'totalResults'=>$rowCount, 'items'=>$items));
 } elseif ($format == 'xml' && $rowCount != 0) {
-	header('Content-type: text/xml');
-	echo '<items>';
-  echo '<kind>API Request</kind>';
-  echo '<totalResults>'.$rowCount.'</totalResults>';
-	foreach($items as $tag => $value) {
-		writeXML($tag, $value);
-	}
-	echo '</items>';
+        header('Content-type: text/xml');
+        echo '<?xml version="1.0" encoding="UTF-8" ?>';
+        echo '<feed>';
+        echo '<apiVersion>1</apiVersion>';
+        echo '<kind>API Request</kind>';
+        echo '<method>'.$type.'</method>';
+        echo '<totalResults>'.$rowCount.'</totalResults>';
+        echo '<items>'; 
+        foreach($items as $tag => $value) {
+                writeXML($tag, $value);
+        }
+        echo '</items>'; 
+        echo '</feed>';
 } else {
 	header('Content-type: application/json');
 	header("access-control-allow-origin: *");
