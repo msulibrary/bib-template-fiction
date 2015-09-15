@@ -79,6 +79,11 @@ input::-webkit-input-placeholder {color:#999;}
 .prose {text-indent:1.875em;}
 .pane {display:table-cell;text-align:left;vertical-align:top;/*text-align:center;vertical-align:middle;line-height:13em;*/}
 .reading.pane {padding-right:3em;}
+.nav-previous-next {text-align:center;margin:.5em;}
+.previous,.next {padding:.25em .5em;border:1px solid #369;border-radius:.25em;}
+.previous:hover,.next:hover {background-color:#369;border-color:#369;color:#fff;text-decoration:none;}
+.previous:before {content: "\000AB\ ";}
+.next:after {content: " \000BB\ ";}
 
 /*large screen view [default] > 801px (based on 16px browser default)*/
 @media all and (min-width:50.1em) {
