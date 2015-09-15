@@ -32,14 +32,14 @@ function readTime($text) {
 //bring database parameters and functions onto page
 include_once './meta/assets/dbconnect.inc';
 
-$previousQuery = 'SELECT id FROM schema_textbook.bodymatter WHERE id < '.$id.' ORDER BY id DESC LIMIT 1';
+$previousQuery = 'SELECT id FROM schema_fiction.bodymatter WHERE id < '.$id.' ORDER BY id DESC LIMIT 1';
 $result = $dbconn->query($previousQuery) or die($dbconn->error.__LINE__);
 if($result->num_rows > 0) {
   $item = $result->fetch_object();
   $previousPage = $item->id;
 }
 
-$nextQuery = 'SELECT id FROM schema_textbook.bodymatter WHERE id > '.$id.' ORDER BY id LIMIT 1';
+$nextQuery = 'SELECT id FROM schema_fiction.bodymatter WHERE id > '.$id.' ORDER BY id LIMIT 1';
 $result = $dbconn->query($nextQuery) or die($dbconn->error.__LINE__);
 if($result->num_rows > 0) {
   $item = $result->fetch_object();
