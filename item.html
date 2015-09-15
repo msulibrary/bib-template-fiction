@@ -32,6 +32,20 @@ function readTime($text) {
 //bring database parameters and functions onto page
 include_once './meta/assets/dbconnect.inc';
 
+$previousQuery = 'SELECT id FROM schema_textbook.bodymatter WHERE id < '.$id.' ORDER BY id DESC LIMIT 1';
+$result = $dbconn->query($previousQuery) or die($dbconn->error.__LINE__);
+if($result->num_rows > 0) {
+  $item = $result->fetch_object();
+  $previousPage = $item->id;
+}
+
+$nextQuery = 'SELECT id FROM schema_textbook.bodymatter WHERE id > '.$id.' ORDER BY id LIMIT 1';
+$result = $dbconn->query($nextQuery) or die($dbconn->error.__LINE__);
+if($result->num_rows > 0) {
+  $item = $result->fetch_object();
+  $nextPage = $item->id;
+}
+
 //get data to generate chapter data
 $query = 'SELECT * FROM schema_fiction.bodymatter WHERE id = '.$id;
 
@@ -133,21 +147,77 @@ if ($_SERVER['HTTP_HOST'] == "arc.lib.montana.edu") {
 if ($item_body != null && $item_genre == 'Prose') {
 ?>
   <span class="prose" property="text"><?php echo $item_body; ?></span>
+   <p class="nav-previous-next" epub:type="page-list" typeof="SiteNavigationElement">
+<?php
+if ($previousPage != null) {
+?>
+   <a class="previous" property="url" href="<?php echo $path.'/item/'.$previousPage; ?>">previous</a>
+<?php
+} 
+if ($nextPage != null) {
+?>
+   <a class="next" property="url" href="<?php echo $path.'/item/'.$nextPage; ?>">next</a>
+<?php
+}
+?>
+   </p>
 <?php
 }
 if ($item_body != null && $item_genre == 'Poetry') {
 ?>
   <span class="poetry" property="text"><?php echo $item_body; ?></span>
+   <p class="nav-previous-next" epub:type="page-list" typeof="SiteNavigationElement">
+<?php
+if ($previousPage != null) {
+?>
+   <a class="previous" property="url" href="<?php echo $path.'/item/'.$previousPage; ?>">previous</a>
+<?php
+} 
+if ($nextPage != null) {
+?>
+   <a class="next" property="url" href="<?php echo $path.'/item/'.$nextPage; ?>">next</a>
+<?php
+}
+?>
+   </p>
 <?php
 }
 if ($item_image != null) {
 ?>
   <figure class="image" property="image"><img src="<?php echo $path; ?>/meta/img/<?php echo $item_image; ?>" /></figure>
+   <p class="nav-previous-next" epub:type="page-list" typeof="SiteNavigationElement">
+<?php
+if ($previousPage != null) {
+?>
+   <a class="previous" property="url" href="<?php echo $path.'/item/'.$previousPage; ?>">previous</a>
+<?php
+} 
+if ($nextPage != null) {
+?>
+   <a class="next" property="url" href="<?php echo $path.'/item/'.$nextPage; ?>">next</a>
+<?php
+}
+?>
+   </p>
 <?php
 }
 if ($item_body != null && $item_genre != 'Prose' && $item_genre != 'Poetry' && $item_image == null) {
 ?>
  <span class="text" property="text"><?php echo $item_body; ?></span>
+   <p class="nav-previous-next" epub:type="page-list" typeof="SiteNavigationElement">
+<?php
+if ($previousPage != null) {
+?>
+   <a class="previous" property="url" href="<?php echo $path.'/item/'.$previousPage; ?>">previous</a>
+<?php
+} 
+if ($nextPage != null) {
+?>
+   <a class="next" property="url" href="<?php echo $path.'/item/'.$nextPage; ?>">next</a>
+<?php
+}
+?>
+   </p>
 <?php
 }
 ?>
