@@ -4,6 +4,7 @@
 
 //db name, login data and connection directions
 $dbconn = new mysqli('localhost', 'YOUR-DB-USER-HERE', 'YOUR-DB-PASSWORD-HERE', 'schema_fiction');
+$dbconn->set_charset('utf8');
 
 if ($dbconn->connect_errno) {
     die('Unable to connect to database [' . $dbconn->connect_error . ']');
