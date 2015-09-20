@@ -69,7 +69,7 @@ if($result->num_rows > 0) {
 ?>
 <!doctype html>
 <html lang="en" vocab="http://schema.org/" typeof="CreativeWork" xmlns:epub="http://www.idpf.org/2007/ops" resource="<?php echo $protocol.$server.$path.'/item/'.$id; ?>">
-<head>
+<head id="webpage" typeof="WebPage" resource="<?php echo $protocol.$server.$path.'/item/'.$id; ?>#webpage">
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
