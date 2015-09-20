@@ -94,11 +94,11 @@ if($result->num_rows > 0) {
 //set $fileName rel=canonical conditional
 if ($fileName == 'item.html') {
 ?>
-<link rel="canonical bookmark url" href="<?php echo $protocol.$server.$path; ?>/item/<?php echo $id; ?>"/>
+<link rel="canonical" href="<?php echo $protocol.$server.$path; ?>/item/<?php echo $id; ?>"/>
 <?php
 } else {
 ?>
-<link rel="canonical bookmark url" href="<?php echo $protocol.$server.$fileNameURI; ?>"/>
+<link rel="canonical" href="<?php echo $protocol.$server.$fileNameURI; ?>"/>
 <?php
 //end $fileName rel=canonical conditional
 }
@@ -126,7 +126,7 @@ if ($_SERVER['HTTP_HOST'] == "arc.lib.montana.edu") {
 <body property="mainEntity" typeof="Book" resource="<?php echo $protocol.$server.$path.'/item/'.$id; ?>#book">
 
 <header role="banner">
-<a href="<?php echo $path; ?>/item/<?php echo $item_id; ?>" property="url" rel="bookmark home"><span property="title" epub:type="fulltitle"><?php echo $item_name; ?></span> by <?php echo $item_creator; ?></a>
+<a href="<?php echo $path; ?>/item/<?php echo $item_id; ?>" property="url"><span property="title" epub:type="fulltitle"><?php echo $item_name; ?></span> by <?php echo $item_creator; ?></a>
 <nav typeof="BreadcrumbList">
  <p class="breadcrumb">
   <span property="itemListElement" typeof="ListItem">
