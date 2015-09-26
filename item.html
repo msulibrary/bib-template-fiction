@@ -236,9 +236,9 @@ if ($nextPage != null) {
     <dt>Date:</dt>
     <dd property="datePublished"><?php echo $item_date_created; ?></dd>
     <dt>Category:</dt>
-    <dd property="genre" resource="http://dbpedia.org/page/<?php echo str_replace(' ', '_', $item_genre); ?>"><a property="about" href="https://en.wikipedia.org/wiki/<?php echo str_replace(' ', '_', $item_genre); ?>"><?php echo $item_genre; ?></a></dd>
+    <dd property="genre" resource="http://dbpedia.org/page/<?php echo str_replace(' ', '_', $item_genre); ?>"><a property="about" content="https://en.wikipedia.org/wiki/<?php echo str_replace(' ', '_', $item_genre); ?>" href="https://en.wikipedia.org/wiki/<?php echo str_replace(' ', '_', $item_genre); ?>"><?php echo $item_genre; ?></a></dd>
     <dt>Context:</dt>
-    <dd property="additionalType" resource="http://dbpedia.org/page/<?php echo str_replace(' ', '_', $item_about); ?>"><a property="about" href="https://en.wikipedia.org/wiki/<?php echo str_replace(' ', '_', $item_about); ?>"><?php echo $item_about; ?></a></dd>
+    <dd property="additionalType" resource="http://dbpedia.org/page/<?php echo str_replace(' ', '_', $item_about); ?>"><a property="about" content="https://en.wikipedia.org/wiki/<?php echo str_replace(' ', '_', $item_about); ?>" href="https://en.wikipedia.org/wiki/<?php echo str_replace(' ', '_', $item_about); ?>"><?php echo $item_about; ?></a></dd>
     <dt>Read Time:</dt>
     <dd><time property="timeRequired" datetime="PT<?php echo str_replace("< ", "", $readTime); ?>M"><?php echo $readTime; ?> minute(s)</time></dd>
     <dt>Page:</dt>
