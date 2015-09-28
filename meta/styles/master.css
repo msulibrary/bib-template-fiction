@@ -78,7 +78,7 @@ input::-webkit-input-placeholder {color:#999;}
 [role="complementary"] {font-size:.8em;color:rgba(51, 51, 51, 0.65);}
 [role="contentinfo"] {background-color:#eff1f3;border-top:1px solid #d8d8d8;padding-bottom:.5em;}
 .reading-view {display:table;font-size:1.25em;line-height:1.938em;min-height:100%;width:100%;}
-.prose {text-indent:1.875em;}
+.prose,.text {text-indent:1.875em;}
 .pane {display:table-cell;text-align:left;vertical-align:top;/*text-align:center;vertical-align:middle;line-height:13em;*/}
 .reading.pane {padding-right:3em;}
 .nav-previous-next {text-align:center;margin:.5em;}
