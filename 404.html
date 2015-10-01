@@ -7,14 +7,15 @@
 <style type="text/css">
 *{line-height:1.2;margin:0;}
 html{color:#333;display:table;font-family:sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;height:100%;text-align:center;width:100%;}
-body{display:table-cell;vertical-align:middle;margin:2em auto;}
+body{display:table-cell;font-size:100%;vertical-align:middle;margin:2em auto;}
 h1{color:#555;font-size:2em;font-weight:400;}
 p{width:280px;margin:1em auto;}
 a{font-weight:700;text-decoration:none;}
 a:link,a:visited{color:#369;}
 a:hover,a:focus,a:active{outline:0;text-decoration:underline;}
 .hidden{border:0;clip:rect(0000);height:1px;overflow:hidden;position:absolute;width:1px;margin:-1px;padding:0;}
-@media only screen and max-width 280px {
+/*small screen view < 481px (based on 16px browser default)*/
+@media all and (max-width:30.063em) {
 body,p{width:95%;}
 h1{font-size:1.5em;margin:0 0 .3em;}
 }
@@ -24,9 +25,9 @@ h1{font-size:1.5em;margin:0 0 .3em;}
   <h1>Page Not Found</h1>
   <p>Sorry, but the page you were trying to view does not exist.</p>
   <p>Try a search for the page?</p>
-  <form id="searchBox" method="get" action="/book/opsis/search?">
+  <form id="searchBox" method="get" action="./search?">
     <label class="hidden" for="q">Search</label>
-    <input type="text" maxlength="200" name="q" id="q" tabindex="1" value="Search Opsis..." onclick="if (this.value == 'Search Opsis...') { this.value = ''; }" onblur="if (this.value == '') { this.value = 'Search Opsis...'; }">
+    <input type="text" maxlength="200" name="q" id="q" tabindex="1" placeholder="Search this book..." autofocus>
     <button type="submit" class="button">Search</button>
   </form>
   <p>Or head back to the <a href="./index.html">home page</a>?</p>
