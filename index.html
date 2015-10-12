@@ -53,18 +53,15 @@ if ($_SERVER['HTTP_HOST'] == "ADD-YOUR-DOMAIN-HERE") {
 ?>
 </head>
 <body property="mainEntity" typeof="Book">
-
 <main epub:type="cover" role="main" id="top">
 <a href="#menu" class="control open">menu</a>
 <h1 epub:type="fulltitle">Opsis</h1>
 <section class="reading-view">
 <div class="reading pane">
-
-<a href="<?php echo $path; ?>/table-of-contents.html"> <img src="<?php echo $path; ?>/meta/img/opsis.png"/> </a>
-
+<a href="<?php echo $path; ?>/table-of-contents.html"><img width="600" height="575" src="<?php echo $path; ?>/meta/img/opsis.png"/></a>
 </div>
+</section>
 </main>
-
 <section epub:type="titlepage" role="navigation" id="menu">
 <h2>Opsis: Literary Arts Journal</h2>
 <nav epub:type="landmarks">
@@ -79,17 +76,43 @@ if ($_SERVER['HTTP_HOST'] == "ADD-YOUR-DOMAIN-HERE") {
 </nav>
 <a href="#top" class="control close">close</a>
 </section>
-
 <footer role="contentinfo">
 <ul class="info-links">
- <li><a href="#top">Top of Page</a></li>
+  <li><a href="#top">Top of Page</a></li>
   <li><a epub:type="toc" href="<?php echo $path; ?>/table-of-contents.html">Table of Contents</a></li>
- <li><a epub:type="other-credits" title="CC BY 3.0 US" property="license" href="https://creativecommons.org/licenses/by/3.0/us/">
+  <li><a epub:type="other-credits" title="CC BY 3.0 US" property="license" href="https://creativecommons.org/licenses/by/3.0/us/">
   License</a></li>
- <li property="publisher provider">My Library</li>
+  <li property="publisher provider">My Library</li>
 </ul>
 </footer>
-
-<script async src="<?php echo $path; ?>/meta/scripts/main.js"></script>
+<script>
+(function (win, doc) {
+  'use strict';
+  if (!win.addEventListener) {
+    return;
+  }
+  var linkclass = 'control',
+    activeclass = 'active',
+    enhanceclass = 'enhanced',
+    toggleClassName = function (element, toggleClass) {
+      var reg = new RegExp('(\\s|^)' + toggleClass + '(\\s|$)');
+      if (!element.className.match(reg)) {
+        element.className += ' ' + toggleClass;
+      } else {
+        element.className = element.className.replace(reg, '');
+      }
+    },
+    navListener = function (ev) {
+      ev = ev || win.event;
+      var target = ev.target || ev.srcElement;
+      if (target.className.indexOf(linkclass) !== -1) {
+        ev.preventDefault();
+        toggleClassName(doc.body, activeclass);
+      }
+    };
+  doc.documentElement.className += ' ' + enhanceclass;
+  doc.addEventListener('click', navListener, false);
+}(this, this.document));
+</script>
 </body>
 </html>
