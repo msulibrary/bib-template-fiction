@@ -6,6 +6,7 @@ $server = isset($_SERVER['SERVER_NAME']) ? htmlentities(strip_tags($_SERVER['SER
 $path = isset($_SERVER['PHP_SELF']) ? htmlentities(strip_tags(dirname($_SERVER['PHP_SELF']))) : null;
 $fileName = isset($_SERVER['SCRIPT_NAME']) ? htmlentities(strip_tags(basename($_SERVER['SCRIPT_NAME']))) : null;
 $fileNameURI = isset($_SERVER['REQUEST_URI']) ? htmlentities(strip_tags($_SERVER['REQUEST_URI'])) : null;
+$fileExtension = isset($_SERVER['PATH_INFO']) ? pathinfo($fileName, PATHINFO_EXTENSION) : null;
 ?>
 <!doctype html>
 <html lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
