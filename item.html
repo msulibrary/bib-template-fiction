@@ -5,11 +5,11 @@ $id = isset($_GET['id']) ? strip_tags((int)$_GET['id']) : null;
 //get and set url protocol
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
 //set and sanitize global variables for URL construction
-$server = htmlentities(strip_tags($_SERVER['SERVER_NAME']));
-$path = htmlentities(strip_tags(dirname($_SERVER['PHP_SELF'])));
-$fileName = htmlentities(strip_tags(basename($_SERVER['SCRIPT_NAME'])));
-$fileNameURI = htmlentities(strip_tags($_SERVER['REQUEST_URI']));
-$fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+$server = isset($_SERVER['SERVER_NAME']) ? htmlentities(strip_tags($_SERVER['SERVER_NAME'])) : null;
+$path = isset($_SERVER['PHP_SELF']) ? htmlentities(strip_tags(dirname($_SERVER['PHP_SELF']))) : null;
+$fileName = isset($_SERVER['SCRIPT_NAME']) ? htmlentities(strip_tags(basename($_SERVER['SCRIPT_NAME']))) : null;
+$fileNameURI = isset($_SERVER['REQUEST_URI']) ? htmlentities(strip_tags($_SERVER['REQUEST_URI'])) : null;
+$fileExtension = isset($_SERVER['PATH_INFO']) ? pathinfo($fileName, PATHINFO_EXTENSION) : null;
 $jsonURI = $protocol.$server.$path.'/item/'.$id;
 //end(explode('.',$fileName));
 //echo $fileExtension;
