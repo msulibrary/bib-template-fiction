@@ -1,0 +1,128 @@
+<?php
+//get and set url protocol
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+//set and sanitize global variables for URL construction
+$server = isset($_SERVER['SERVER_NAME']) ? htmlentities(strip_tags($_SERVER['SERVER_NAME'])) : null;
+$path = isset($_SERVER['PHP_SELF']) ? htmlentities(strip_tags(dirname($_SERVER['PHP_SELF']))) : null;
+$fileName = isset($_SERVER['SCRIPT_NAME']) ? htmlentities(strip_tags(basename($_SERVER['SCRIPT_NAME']))) : null;
+$fileNameURI = isset($_SERVER['REQUEST_URI']) ? htmlentities(strip_tags($_SERVER['REQUEST_URI'])) : null;
+$fileExtension = isset($_SERVER['PATH_INFO']) ? pathinfo($fileName, PATHINFO_EXTENSION) : null;
+?>
+<!doctype html>
+<html lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Copyright - Opsis: Literary Arts Journal of Montana State University (MSU)</title>
+<meta name="description" property="description" content="Copyright Page for Opsis, a Literary Arts Journal published by the students at Montana State University (MSU)"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<!-- Social Media Tags -->
+<meta name="twitter:title" content="Opsis"/>
+<meta name="twitter:description" content="Literary Arts Journal at Montana State University (MSU)"/>
+<meta name="twitter:image:src" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png"/>
+<meta name="twitter:url" content="<?php echo $protocol.$server.$path; ?>/"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="@msulibrary"/>
+<meta name="twitter:creator" content="@msulibrary"/>
+<meta property="og:title" content="Opsis"/>
+<meta property="og:description" content="Literary Arts Journal at Montana State University (MSU)"/>
+<meta property="og:image" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png"/>
+<meta property="og:url" content="<?php echo $protocol.$server.$path; ?>/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Montana State University (MSU) Library"/>
+<!-- End Social Media Tags -->
+<link rel="canonical" href="<?php echo $protocol.$server.$path; ?>/"/>
+<link rel="shortcut icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
+<link rel="stylesheet" href="<?php echo $path; ?>/meta/styles/master.css"/>
+<link rel="stylesheet" href="<?php echo $path; ?>/meta/styles/home.css"/>
+<?php
+if ($_SERVER['HTTP_HOST'] == "ADD-YOUR-DOMAIN-HERE") {
+?>
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'ADD-YOUR-GOOGLE-ANALYTICS-ACCOUNT-ID-HERE', 'auto', {'allowLinker': true});
+	ga('require', 'linker');
+	ga('linker:autoLink', ['lib.montana.edu']);
+	ga('send', 'pageview');
+</script>
+<?php
+}
+?>
+</head>
+<body property="mainEntity" typeof="Book">
+<main epub:type="cover" role="main" id="top">
+<a href="#menu" class="control open">menu</a>
+<h1 epub:type="fulltitle">Opsis</h1>
+<section class="reading-view">
+<div class="reading pane">
+
+<p>Names: MSU Library | Multiple Authors <br />
+Title: Opis, A Literary Journal / by MSU Library ; illustrated by Chris Sheban. <br />
+Description: Mankato, MN : Creative Editions, 2015. | &quot;Previously published in 1997.&quot; | 
+Summary: After a visit to a museum of natural history, a young girl begins to see dinosaurs everywhere.&nbsp;<br />
+Identifiers: LCCN 2014022590 (print) | LCCN 2014026315 (ebook) | ISBN 978-1-56846-233-2 (hardcover : alk. paper) | ISBN 978-1-56660-508-3 (epub)&nbsp;<br />
+Subjects: CYAC: Stories in rhyme. | Dinosaurs--Fiction. | Imagination--Fiction.&nbsp;<br />
+Classification: LCC PZ8.3.W133 Iae 2015 (print) | LCC PZ8.3.W133 (ebook) | DDC [E]--dc22&nbsp;<br />
+LC record available at http://lccn.loc.gov/2014022590</p>
+
+</div>
+</section>
+</main>
+<section epub:type="titlepage" role="navigation" id="menu">
+<h2>Opsis: Literary Arts Journal</h2>
+<nav epub:type="landmarks">
+<ul>
+  <li><a epub:type="toc" href="<?php echo $path; ?>/table-of-contents.html">Table of Contents</a></li>
+  <form class="search" role="search" action="<?php echo $path; ?>/search?">
+    <label class="hidden" for="q">Search</label>
+    <input id="q" name="q" type="search" placeholder="Search">
+  </form>
+  </li>
+</ul>
+</nav>
+<a href="#top" class="control close">close</a>
+</section>
+<footer role="contentinfo">
+<ul class="info-links">
+  <li><a href="#top">Top of Page</a></li>
+  <li><a epub:type="toc" href="<?php echo $path; ?>/table-of-contents.html">Table of Contents</a></li>
+  <li><a epub:type="other-credits" title="CC BY 3.0 US" property="license" href="https://creativecommons.org/licenses/by/3.0/us/">
+  License</a></li>
+  <li property="publisher provider">My Library</li>
+</ul>
+</footer>
+<script>
+(function (win, doc) {
+  'use strict';
+  if (!win.addEventListener) {
+    return;
+  }
+  var linkclass = 'control',
+    activeclass = 'active',
+    enhanceclass = 'enhanced',
+    toggleClassName = function (element, toggleClass) {
+      var reg = new RegExp('(\\s|^)' + toggleClass + '(\\s|$)');
+      if (!element.className.match(reg)) {
+        element.className += ' ' + toggleClass;
+      } else {
+        element.className = element.className.replace(reg, '');
+      }
+    },
+    navListener = function (ev) {
+      ev = ev || win.event;
+      var target = ev.target || ev.srcElement;
+      if (target.className.indexOf(linkclass) !== -1) {
+        ev.preventDefault();
+        toggleClassName(doc.body, activeclass);
+      }
+    };
+  doc.documentElement.className += ' ' + enhanceclass;
+  doc.addEventListener('click', navListener, false);
+}(this, this.document));
+</script>
+</body>
+</html>
