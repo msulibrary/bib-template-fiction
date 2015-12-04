@@ -9,57 +9,86 @@ $fileNameURI = isset($_SERVER['REQUEST_URI']) ? htmlentities(strip_tags($_SERVER
 $fileExtension = isset($_SERVER['PATH_INFO']) ? pathinfo($fileName, PATHINFO_EXTENSION) : null;
 ?>
 <!doctype html>
-<html lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+<html lang="en" vocab="http://schema.org/" typeof="CreativeWork" xmlns:epub="http://www.idpf.org/2007/ops">
 <head>
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<title>Copyright - Opsis: Literary Arts Journal of Montana State University (MSU)</title>
-<meta name="description" property="description" content="Copyright Page for Opsis, a Literary Arts Journal published by the students at Montana State University (MSU)"/>
+<title>Copyright - Opsis: Literary Arts Journal @ Montana State University (MSU)</title>
+<meta name="description" property="description" content="Copyright for Opsis, a Literary Arts Journal published by Montana State University (MSU) students"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <!-- Social Media Tags -->
-<meta name="twitter:title" content="Opsis"/>
-<meta name="twitter:description" content="Literary Arts Journal at Montana State University (MSU)"/>
-<meta name="twitter:image:src" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png"/>
-<meta name="twitter:url" content="<?php echo $protocol.$server.$path; ?>/"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:site" content="@msulibrary"/>
-<meta name="twitter:creator" content="@msulibrary"/>
-<meta property="og:title" content="Opsis"/>
-<meta property="og:description" content="Literary Arts Journal at Montana State University (MSU)"/>
-<meta property="og:image" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png"/>
-<meta property="og:url" content="<?php echo $protocol.$server.$path; ?>/"/>
-<meta property="og:type" content="website"/>
+<meta name="twitter:title" content="Opsis - Copyright">
+<meta name="twitter:description" content="Literary Arts Journal at Montana State University (MSU)">
+<meta name="twitter:image:src" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png">
+<meta name="twitter:url" content="<?php echo $protocol.$server.$path; ?>/table-of-contents.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@msulibrary">
+<meta name="twitter:creator" content="@msulibrary">
+<meta property="og:title" content="Opsis - Copyright">
+<meta property="og:description" content="Literary Arts Journal at Montana State University (MSU)">
+<meta property="og:image" content="<?php echo $protocol.$server.$path; ?>/meta/img/opsis.png">
+<meta property="og:url" content="<?php echo $protocol.$server.$path; ?>/table-of-contents.html">
+<meta property="og:type" content="website" />
 <meta property="og:site_name" content="Montana State University (MSU) Library"/>
 <!-- End Social Media Tags -->
-<link rel="canonical" href="<?php echo $protocol.$server.$path; ?>/"/>
+<?php
+//set $fileName rel=canonical conditional
+if ($fileName == 'item.html') {
+?>
+<link rel="canonical" href="<?php echo $protocol.$server.$path; ?>/item/<?php echo $id; ?>"/>
+<?php
+} else {
+?>
+<link rel="canonical" href="<?php echo $protocol.$server.$fileNameURI; ?>"/>
+<?php
+//end $fileName rel=canonical conditional
+}
+?>
 <link rel="shortcut icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
 <link rel="icon" href="<?php echo $path; ?>/favicon.ico" type="image/x-icon"/>
 <link rel="stylesheet" href="<?php echo $path; ?>/meta/styles/master.css"/>
-<link rel="stylesheet" href="<?php echo $path; ?>/meta/styles/home.css"/>
+<style type="text/css">
+.toc {list-style:none;padding:0;width:90%;}
+.toc li {overflow:hidden;padding-bottom:2px;}
+.toc span a, .toc span {display:inline-block;position:relative;bottom:-4px;}
+span.label {float:left;width:auto;padding:0 0 3px 2px;}
+[property="position"]{float:right;width:auto;padding:0 2px 3px 0;}
+[property="position"]:before{content: " .......... ";}
+</style>
 <?php
-if ($_SERVER['HTTP_HOST'] == "ADD-YOUR-DOMAIN-HERE") {
+if ($_SERVER['HTTP_HOST'] == "arc.lib.montana.edu") {
 ?>
 <script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	ga('create', 'ADD-YOUR-GOOGLE-ANALYTICS-ACCOUNT-ID-HERE', 'auto', {'allowLinker': true});
-	ga('require', 'linker');
-	ga('linker:autoLink', ['lib.montana.edu']);
-	ga('send', 'pageview');
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2733436-2', 'auto', {'allowLinker': true});
+  ga('require', 'linker');
+  ga('linker:autoLink', ['lib.montana.edu']);
+  ga('send', 'pageview');
 </script>
 <?php
 }
 ?>
 </head>
 <body property="mainEntity" typeof="Book">
-<main epub:type="cover" role="main" id="top">
+
+<header role="banner">
+<a href="<?php echo $path; ?>/table-of-contents.html" rel="bookmark home"><span epub:type="fulltitle">Opsis: Literary Arts Journal</span> by Multiple Authors</a>
+<nav>
+ <p class="breadcrumb" vocab="http://rdf.data-vocabulary.org/rdf.xml#">
+  <span typeof="Breadcrumb"><a href="<?php echo $path; ?>/index.html" rel="index url" property="title">Home</a></span> >
+  <span typeof="Breadcrumb"><a href="<?php echo $path; ?>/table-of-contents.html" rel="bookmark url" property="title">Current</a></span>
+ </p>
+</nav>
+</header>
+
+<main data-bookmark="#" id="top" epub:type="frontmatter" role="main">
 <a href="#menu" class="control open">menu</a>
-<h1 epub:type="fulltitle">Opsis</h1>
+<h1 epub:type="title">Copyright and Cataloging-in-Publication Data</h1>
 <section class="reading-view">
 <div class="reading pane">
-<h1>Cataloging-in-Publication Data</h1>
 <p>Names: Montana State University, Department of English | Multiple Authors <br />
 Title: <span property="name">Opis, A Literary Journal</span> / by <span property="author">Montana State University, Department of English</span> ; illustrated by <span property="contributor">Multiple Creators.</span><br />
 Description: Bozeman, MT : Montana State University (MSU), 2015. | &quot;Continuously published since 1997.&quot; | 
@@ -71,13 +100,26 @@ LC record available at http://lccn.loc.gov/2014022590</p>
 <p property="publisher provider">Montana State University (MSU) Library</p>
 <p><a property="license" rel="license" href="http://creativecommons.org/licenses/by/3.0/us/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/3.0/us/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons Attribution 3.0 United States License</a>.</p>
 </div>
+<aside class="metadata pane" epub:type="help appendix" role="complementary">
+  <dl>
+    <dt>Author(s):</dt>
+    <dd property="creator">Montana State University (MSU) Students</dd>
+    <dt>Date:</dt>
+    <dd property="datePublished">2015-02-02T01:43:19Z</dd>
+    <dt>Page:</dt>
+    <dd epub:type="pagebreak" class="pagination">N/A</dd>
+  </dl>
+</aside>
 </section>
 </main>
-<section epub:type="titlepage" role="navigation" id="menu">
+
+<section id="menu" role="navigation">
 <h2>Opsis: Literary Arts Journal</h2>
 <nav epub:type="landmarks">
 <ul>
   <li><a epub:type="toc" href="<?php echo $path; ?>/table-of-contents.html">Table of Contents</a></li>
+  <li><a href="<?php echo $path; ?>/index.html">Title Page</a></li>
+  <li>
   <form class="search" role="search" action="<?php echo $path; ?>/search?">
     <label class="hidden" for="q">Search</label>
     <input id="q" name="q" type="search" placeholder="Search">
@@ -87,43 +129,18 @@ LC record available at http://lccn.loc.gov/2014022590</p>
 </nav>
 <a href="#top" class="control close">close</a>
 </section>
+
 <footer role="contentinfo">
 <ul class="info-links">
   <li><a href="#top">Top of Page</a></li>
   <li><a epub:type="toc" href="<?php echo $path; ?>/table-of-contents.html">Table of Contents</a></li>
   <li><a epub:type="other-credits" title="CC BY 3.0 US" property="license" href="https://creativecommons.org/licenses/by/3.0/us/">
   License</a></li>
-  <li property="publisher provider">My Library</li>
+  <li property="publisher provider"><?php echo $item_publisher; ?></li>
 </ul>
 </footer>
-<script>
-(function (win, doc) {
-  'use strict';
-  if (!win.addEventListener) {
-    return;
-  }
-  var linkclass = 'control',
-    activeclass = 'active',
-    enhanceclass = 'enhanced',
-    toggleClassName = function (element, toggleClass) {
-      var reg = new RegExp('(\\s|^)' + toggleClass + '(\\s|$)');
-      if (!element.className.match(reg)) {
-        element.className += ' ' + toggleClass;
-      } else {
-        element.className = element.className.replace(reg, '');
-      }
-    },
-    navListener = function (ev) {
-      ev = ev || win.event;
-      var target = ev.target || ev.srcElement;
-      if (target.className.indexOf(linkclass) !== -1) {
-        ev.preventDefault();
-        toggleClassName(doc.body, activeclass);
-      }
-    };
-  doc.documentElement.className += ' ' + enhanceclass;
-  doc.addEventListener('click', navListener, false);
-}(this, this.document));
-</script>
+
+<script async src="<?php echo $path; ?>/meta/scripts/main.js"></script>
+
 </body>
 </html>
