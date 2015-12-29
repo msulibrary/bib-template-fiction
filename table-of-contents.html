@@ -65,7 +65,7 @@ if ($_SERVER['HTTP_HOST'] == "ADD-YOUR-DOMAIN-HERE") {
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
   ga('create', 'ADD-YOUR-GOOGLE-ANALYTICS-ACCOUNT-ID-HERE', 'auto', {'allowLinker': true});
   ga('require', 'linker');
-  ga('linker:autoLink', ['lib.montana.edu']);
+  ga('linker:autoLink', ['ADD-YOUR-DOMAIN-HERE']);
   ga('send', 'pageview');
 </script>
 <?php
@@ -89,7 +89,8 @@ if ($_SERVER['HTTP_HOST'] == "ADD-YOUR-DOMAIN-HERE") {
 <h1 epub:type="title">Table of Contents</h1>
 <section class="reading-view">
 <div class="reading pane">
-<ul class="toc" epub:type="toc" property="ItemList">
+<nav>
+<ol class="toc" epub:type="toc" property="ItemList">
 <?php
 //bring database parameters and functions onto page
 include_once './meta/assets/dbconnect.inc';
@@ -116,7 +117,8 @@ $result->close();
 }
 $dbconn->close();
 ?>
-</ul><!-- end ul.toc -->
+</ol><!-- end ol.toc -->
+</nav><!-- end nav container for .toc -->
 </div>
 <aside class="metadata pane" epub:type="help appendix" role="complementary">
   <dl>
