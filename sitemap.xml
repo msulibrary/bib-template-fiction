@@ -27,7 +27,7 @@ $fileName = htmlentities(strip_tags(basename($_SERVER['SCRIPT_NAME'])));
 include_once './meta/assets/dbconnect.inc';
 
 //retrieve items from database
-$query = "SELECT id, dateModified FROM fiction_schema.bodymatter GROUP BY id ORDER BY id ASC";
+$query = "SELECT id, dateModified FROM schema_fiction.bodymatter GROUP BY id ORDER BY id ASC";
 $result = $dbconn->query($query) or die($dbconn->error.__LINE__);
 
 //store items in array, strip out html tags, generate valid date stamp
