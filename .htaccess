@@ -13,6 +13,7 @@ AddDefaultCharset utf-8
 AddType application/atom+xml .atom
 AddType application/json .json
 AddType application/ld+json .jsonld
+AddType application/oebps-package+xml .opf
 AddType application/rss+xml .rss
 AddType application/xml .rdf .xml
 AddType application/vnd.ms-fontobject .eot
