@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.1" xml:lang="en" unique-identifier="pub-id" prefix="dc: http://purl.org/dc/elements/1.1/">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title id="title">ADD-TITLE</dc:title>
+    <dc:creator id="creator" file-as="ADD familyName, givenName">ADD givenName familyName</dc:creator>
+    <dc:identifier id="pub-id">ADD-URI</dc:identifier>
+    <dc:language>en-US</dc:language>
+    <meta property="dcterms:modified">2016-02-05T14:40:00Z</meta>
+    <dc:publisher>ADD-PUBLISHER</dc:publisher>
+    <link rel="record"
+          href="ADD-URI-OR-FILENAME-TO-EXTERNAL-METADATA-RECORD"
+          media-type="application/xml"
+          properties="onix" />
+    <link rel="record"
+          href="ADD-URI-OR-FILENAME-TO-EXTERNAL-METADATA-RECORD"
+          media-type="application/ld+json" />
+  </metadata>
+  <manifest>
+    <item id="font.lato.regular" href="fonts/lato-regular.otf" media-type="application/vnd.ms-opentype"/>
+    <item id="cover-image" properties="cover-image" href="ADD-IMG-FILENAME" media-type="image/jpeg"/>
+    <item id="style" href="meta/styles/master.css" media-type="text/css"/>
+    <item id="cover-image" properties="cover-image" href="ADD-IMG-FILENAME" media-type="image/jpeg"/>
+    <item id="cover" href="index.html" media-type="text/html"/>
+    <item id="toc" properties="nav" href="table-of-contents.html" media-type="text/html"/>
+    <item id=“titlepage” href="title-page.xhtml" media-type="application/xhtml+xml"/>
+    <item id=“item-1” href="item-1.html" media-type="text/html"/>
+    <item id="ADD-UNIQUE-ID" href="ADD-URI-OR-FILENAMES-AS-NEEDED" media-type="text/html"/>
+  </manifest>
+  <spine>
+    <itemref idref="cover" linear="no"/>
+    <itemref idref="toc" linear="no"/>
+    <itemref idref="titlepage" linear="yes"/>
+    <itemref idref="item-1" linear="yes"/>
+    <itemref idref="ADD-UNIQUE-ITEM-REF-AS-NEEDED..." linear="yes"/>
+  </spine>
+</package>
