@@ -23,7 +23,7 @@
     <item id="cover" href="index.html" media-type="text/html"/>
     <item id="toc" properties="nav" href="table-of-contents.html" media-type="text/html"/>
     <item id=“titlepage” href="title-page.xhtml" media-type="application/xhtml+xml"/>
-    <item id=“item-1” href="item-1.html" media-type="text/html"/>
+    <item id="item-1" href="item-1.html" media-type="text/html"/>
     <item id="ADD-UNIQUE-ID" href="ADD-URI-OR-FILENAMES-AS-NEEDED" media-type="text/html"/>
   </manifest>
   <spine>
